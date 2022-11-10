@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-09 17:01:59
  * @LastEditors: wc
- * @LastEditTime: 2022-11-10 10:19:35
+ * @LastEditTime: 2022-11-10 16:59:08
  */
 
 import { createRouter, createWebHashHistory } from 'vue-router'
@@ -14,7 +14,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/main'
+      // redirect: '/main'
+      redirect: '/login'
     },
     {
       path: '/login',

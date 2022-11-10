@@ -4,11 +4,19 @@
  * @Author: wc
  * @Date: 2022-11-10 09:35:22
  * @LastEditors: wc
- * @LastEditTime: 2022-11-10 09:46:27
+ * @LastEditTime: 2022-11-10 17:21:07
 -->
 <template>
   <div class="login">
-    <h1>login</h1>
+    <div class="login-panel">
+      <div class="title">Airbnb_CMS</div>
+      <div class="tabs"></div>
+      <div class="operate">
+        <span>记住密码</span>
+        <span>忘记密码</span>
+      </div>
+      <div class="login-btn">立即登录</div>
+    </div>
   </div>
 </template>
 
@@ -16,6 +24,9 @@
 
 <style lang="less" scoped>
 .login {
-  color: blue;
+  width: 100%;
+  height: 100%;
+  background: url('../../assets/img/login-bg.jpg');
+  background-size: cover;
 }
 </style>
