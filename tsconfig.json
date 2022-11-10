@@ -6,7 +6,8 @@
     "paths": {
       // 代码路径提示
       "@/*": ["./src/*"]
-    }
+    },
+    "noImplicitAny": false
   },
 
   "references": [
