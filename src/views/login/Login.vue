@@ -4,19 +4,24 @@
  * @Author: wc
  * @Date: 2022-11-10 09:35:22
  * @LastEditors: wc
- * @LastEditTime: 2022-11-11 13:55:57
+ * @LastEditTime: 2022-11-11 15:55:30
 -->
 <template>
   <div class="login">
     <div class="login-panel">
       <h1 class="title">Airbnb_CMS</h1>
+      <!-- 登录模式标签页 -->
       <el-tabs
         class="tabs"
         v-model="loginModel"
         type="card"
         @tab-click="tabsClick"
       >
-        <el-tab-pane label="账号登录" name="account">
+        <el-tab-pane name="account">
+          <template #label>
+            <el-icon :size="20"><UserFilled /></el-icon>
+            <span>账号登录</span>
+          </template>
           <el-form :model="accountForm" :rules="accountFormRules">
             <el-form-item label="账号" prop="account">
               <el-input
@@ -34,8 +39,14 @@
             </el-form-item>
           </el-form>
         </el-tab-pane>
-        <el-tab-pane label="手机登录" name="phone">手机登录</el-tab-pane>
+        <el-tab-pane label="手机登录" name="phone">
+          <template #label>
+            <el-icon :size="20"><Iphone /></el-icon>
+            <span>手机登录</span>
+          </template>
+        </el-tab-pane>
       </el-tabs>
+      <!-- 操作 -->
       <div class="operate">
         <el-checkbox v-model="isSavePassword" label="记住密码" size="large" />
         <div class="forgot-password">忘记密码</div>
@@ -127,7 +138,10 @@ const loginBtn = () => {
 :deep(.el-tabs__item) {
   width: 50%;
   font-size: 16px;
-  text-align: center;
+}
+
+:deep(.el-tabs__content) {
+  height: 100px;
 }
 
 .operate {
