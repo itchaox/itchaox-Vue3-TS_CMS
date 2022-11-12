@@ -3,8 +3,8 @@
  * @Version: v1.00
  * @Author: wc
  * @Date: 2022-11-10 09:35:22
- * @LastEditors: wc
- * @LastEditTime: 2022-11-11 15:55:30
+ * @LastEditors: wangchao
+ * @LastEditTime: 2022-11-12 17:58:07
 -->
 <template>
   <div class="login">
@@ -17,6 +17,7 @@
         type="card"
         @tab-click="tabsClick"
       >
+        <!-- 1. 账号登录 -->
         <el-tab-pane name="account">
           <template #label>
             <el-icon :size="20"><UserFilled /></el-icon>
@@ -39,6 +40,8 @@
             </el-form-item>
           </el-form>
         </el-tab-pane>
+
+        <!-- 2. 手机登录 -->
         <el-tab-pane label="手机登录" name="phone">
           <template #label>
             <el-icon :size="20"><Iphone /></el-icon>
@@ -91,7 +94,11 @@ const tabsClick = (tab: TabsPaneContext, event: Event) => {
 }
 
 const loginBtn = () => {
-  console.log('点击登录按钮')
+  if (loginModel.value === 'account') {
+    console.log('账号登录')
+  } else {
+    console.log('手机登录')
+  }
 }
 </script>
 
