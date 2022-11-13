@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-10 09:35:22
  * @LastEditors: wangchao
- * @LastEditTime: 2022-11-12 17:58:07
+ * @LastEditTime: 2022-11-13 18:18:26
 -->
 <template>
   <div class="login">
@@ -17,17 +17,17 @@
         type="card"
         @tab-click="tabsClick"
       >
-        <!-- 1. 账号登录 -->
+        <!-- 1. 帐号登录 -->
         <el-tab-pane name="account">
           <template #label>
             <el-icon :size="20"><UserFilled /></el-icon>
-            <span>账号登录</span>
+            <span>帐号登录</span>
           </template>
-          <el-form :model="accountForm" :rules="accountFormRules">
-            <el-form-item label="账号" prop="account">
+          <el-form :model="accountForm" :rules="accountFormRules" size="large">
+            <el-form-item label="帐号" prop="account">
               <el-input
                 v-model="accountForm.account"
-                placeholder="请输入账号"
+                placeholder="请输入帐号"
               />
             </el-form-item>
             <el-form-item label="密码" prop="password">
@@ -62,12 +62,13 @@
 </template>
 
 <script setup lang="ts">
+// 获取组件实例类型: ref<instanceof<typeof Login>>
 import { ref, reactive } from 'vue'
 import type { TabsPaneContext, FormRules } from 'element-plus'
 
 const loginModel = ref('account') // 登录模式
 const accountForm = reactive({
-  account: '', // 账号
+  account: '', // 帐号
   password: '' // 密码
 })
 // 表单验证规则
@@ -75,7 +76,7 @@ const accountFormRules = reactive<FormRules>({
   account: [
     {
       required: true,
-      message: '请输入账号',
+      message: '请输入帐号',
       trigger: 'blur'
     }
   ],
@@ -95,7 +96,7 @@ const tabsClick = (tab: TabsPaneContext, event: Event) => {
 
 const loginBtn = () => {
   if (loginModel.value === 'account') {
-    console.log('账号登录')
+    console.log('帐号登录', accountForm.account, accountForm.password)
   } else {
     console.log('手机登录')
   }
@@ -148,7 +149,7 @@ const loginBtn = () => {
 }
 
 :deep(.el-tabs__content) {
-  height: 100px;
+  height: 120px;
 }
 
 .operate {
