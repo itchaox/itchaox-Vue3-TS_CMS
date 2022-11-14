@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-10 09:35:22
  * @LastEditors: wc
- * @LastEditTime: 2022-11-14 11:09:27
+ * @LastEditTime: 2022-11-14 11:48:21
 -->
 <template>
   <div class="login">
@@ -73,7 +73,6 @@ import { ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import type { TabsPaneContext, FormRules, ElForm } from 'element-plus'
 
-import { accountLogin } from '@/service/login/login'
 import useLoginStore from '@/store/login/login'
 
 const loginModel = ref('account') // 登录模式
@@ -142,7 +141,7 @@ const loginBtn = () => {
 
 .login-panel {
   width: 330px;
-  height: 330px;
+  height: 345px;
   padding: 24px;
   background-color: #fdfdf9;
   text-align: center;

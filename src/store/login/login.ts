@@ -4,11 +4,13 @@
  * @Author: wc
  * @Date: 2022-11-14 11:02:08
  * @LastEditors: wc
- * @LastEditTime: 2022-11-14 11:14:20
+ * @LastEditTime: 2022-11-14 11:31:29
  */
 
-import { accountLogin } from '@/service/login/login'
 import { defineStore } from 'pinia'
+import { accountLogin } from '@/service/login/login'
+
+import type { IAccount } from '@/types'
 
 const useLoginStore = defineStore('login', {
   state: () => ({
@@ -17,7 +19,7 @@ const useLoginStore = defineStore('login', {
     name: ''
   }),
   actions: {
-    async loginAccountAction(account: any) {
+    async loginAccountAction(account: IAccount) {
       const res = await accountLogin(account)
       // 登录成功
       if (res.code === 0) {
