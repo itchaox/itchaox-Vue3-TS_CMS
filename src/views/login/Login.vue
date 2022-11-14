@@ -3,8 +3,8 @@
  * @Version: v1.00
  * @Author: wc
  * @Date: 2022-11-10 09:35:22
- * @LastEditors: wangchao
- * @LastEditTime: 2022-11-13 18:18:26
+ * @LastEditors: wc
+ * @LastEditTime: 2022-11-14 10:03:05
 -->
 <template>
   <div class="login">
@@ -23,7 +23,12 @@
             <el-icon :size="20"><UserFilled /></el-icon>
             <span>帐号登录</span>
           </template>
-          <el-form :model="accountForm" :rules="accountFormRules" size="large">
+          <el-form
+            ref="accountFormRef"
+            :model="accountForm"
+            :rules="accountFormRules"
+            size="large"
+          >
             <el-form-item label="帐号" prop="account">
               <el-input
                 v-model="accountForm.account"
@@ -64,7 +69,9 @@
 <script setup lang="ts">
 // 获取组件实例类型: ref<instanceof<typeof Login>>
 import { ref, reactive } from 'vue'
-import type { TabsPaneContext, FormRules } from 'element-plus'
+
+import { ElMessage } from 'element-plus'
+import type { TabsPaneContext, FormRules, ElForm } from 'element-plus'
 
 const loginModel = ref('account') // 登录模式
 const accountForm = reactive({
@@ -89,14 +96,23 @@ const accountFormRules = reactive<FormRules>({
   ]
 })
 const isSavePassword = ref(false) // 是否记住密码
+const accountFormRef = ref<InstanceType<typeof ElForm>>() // 帐号表单 ref
 
+// 事件
 const tabsClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event)
 }
 
 const loginBtn = () => {
   if (loginModel.value === 'account') {
-    console.log('帐号登录', accountForm.account, accountForm.password)
+    accountFormRef.value?.validate((valid) => {
+      if (valid) {
+        console.log('success')
+      } else {
+        ElMessage.error('请输入正确格式内容')
+        console.log('fail')
+      }
+    })
   } else {
     console.log('手机登录')
   }
