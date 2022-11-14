@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-10 09:35:22
  * @LastEditors: wc
- * @LastEditTime: 2022-11-14 10:03:05
+ * @LastEditTime: 2022-11-14 11:09:27
 -->
 <template>
   <div class="login">
@@ -73,6 +73,9 @@ import { ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import type { TabsPaneContext, FormRules, ElForm } from 'element-plus'
 
+import { accountLogin } from '@/service/login/login'
+import useLoginStore from '@/store/login/login'
+
 const loginModel = ref('account') // 登录模式
 const accountForm = reactive({
   account: '', // 帐号
@@ -97,6 +100,7 @@ const accountFormRules = reactive<FormRules>({
 })
 const isSavePassword = ref(false) // 是否记住密码
 const accountFormRef = ref<InstanceType<typeof ElForm>>() // 帐号表单 ref
+const loginStore = useLoginStore()
 
 // 事件
 const tabsClick = (tab: TabsPaneContext, event: Event) => {
@@ -106,7 +110,13 @@ const tabsClick = (tab: TabsPaneContext, event: Event) => {
 const loginBtn = () => {
   if (loginModel.value === 'account') {
     accountFormRef.value?.validate((valid) => {
+      // 验证通过
       if (valid) {
+        // 发送登录接口
+        loginStore.loginAccountAction({
+          name: accountForm.account,
+          password: accountForm.password
+        })
         console.log('success')
       } else {
         ElMessage.error('请输入正确格式内容')
