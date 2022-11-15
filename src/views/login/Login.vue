@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-10 09:35:22
  * @LastEditors: wc
- * @LastEditTime: 2022-11-15 14:16:12
+ * @LastEditTime: 2022-11-15 14:29:43
 -->
 <template>
   <div class="login">
@@ -68,7 +68,7 @@
 
 <script setup lang="ts">
 // 获取组件实例类型: ref<instanceof<typeof Login>>
-import { ref, reactive } from 'vue'
+import { ref, reactive, watch } from 'vue'
 
 import { ElMessage } from 'element-plus'
 import type { TabsPaneContext, FormRules, ElForm } from 'element-plus'
@@ -98,7 +98,12 @@ const accountFormRules = reactive<FormRules>({
     }
   ]
 })
-const isSavePassword = ref(localCache.getCache('account') ? true : false) // 是否记住密码
+const isSavePassword = ref<boolean>(
+  localCache.getCache('isSavePassword') ?? false
+) // 是否记住密码
+watch(isSavePassword, (newValue) => {
+  localCache.setCache('isSavePassword', newValue)
+})
 const accountFormRef = ref<InstanceType<typeof ElForm>>() // 帐号表单 ref
 const loginStore = useLoginStore()
 
@@ -127,6 +132,10 @@ const loginBtn = () => {
               // 记住账号和密码
               localCache.setCache('account', accountForm.account)
               localCache.setCache('password', accountForm.password)
+            } else {
+              // 不需要记住账号和密码
+              localCache.removeCache('account')
+              localCache.removeCache('password')
             }
           })
       } else {

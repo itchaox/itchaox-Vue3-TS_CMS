@@ -4,11 +4,11 @@
  * @Author: wc
  * @Date: 2022-11-14 11:02:08
  * @LastEditors: wc
- * @LastEditTime: 2022-11-15 11:45:58
+ * @LastEditTime: 2022-11-15 16:23:11
  */
 
 import { defineStore } from 'pinia'
-import { accountLogin } from '@/service/login/login'
+import { accountLogin, getUserInfoById } from '@/service/login/login'
 
 import type { IAccount } from '@/types'
 import { localCache } from '@/utils/cache'
@@ -17,20 +17,22 @@ import { TOKEN } from '@/global/constants'
 
 const useLoginStore = defineStore('login', {
   state: () => ({
-    id: '',
     token: localCache.getCache(TOKEN) ?? '', // 如果有缓存 token, 则直接读取 token
-    name: ''
+    userInfo: {} // 用户信息
   }),
   actions: {
     async loginAccountAction(account: IAccount) {
-      const res = await accountLogin(account)
+      const res = await accountLogin(account) // 获取登录信息
       // 登录成功, 获取 token 等
-      this.id = res.data.id
+      const id = res.data.id
+      const name = res.data.name
       this.token = res.data.token
-      this.name = res.data.name
 
       // 缓存 token
       localCache.setCache(TOKEN, this.token)
+
+      const userInfoData = await getUserInfoById(id) // 获取用户信息(role 信息)
+      this.userInfo = userInfoData.data
 
       //! 跳转至 main 页面
       router.push('/main')

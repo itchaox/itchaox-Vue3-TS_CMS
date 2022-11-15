@@ -21,7 +21,7 @@ class HYRequest {
   constructor(config: HYRequestConfig) {
     this.instance = axios.create(config)
 
-    // 每个instance实例都添加拦截器
+    // 每个instance实例都添加_请求拦截器
     this.instance.interceptors.request.use(
       (config) => {
         // loading/token
@@ -31,6 +31,7 @@ class HYRequest {
         return err
       }
     )
+    // 每个instance实例都添加_响应拦截器
     this.instance.interceptors.response.use(
       (res) => {
         return res.data
