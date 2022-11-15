@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-10 09:35:22
  * @LastEditors: wc
- * @LastEditTime: 2022-11-15 10:59:08
+ * @LastEditTime: 2022-11-15 14:16:12
 -->
 <template>
   <div class="login">
@@ -74,11 +74,12 @@ import { ElMessage } from 'element-plus'
 import type { TabsPaneContext, FormRules, ElForm } from 'element-plus'
 
 import useLoginStore from '@/store/login/login'
+import { localCache } from '@/utils/cache'
 
 const loginModel = ref('account') // 登录模式
 const accountForm = reactive({
-  account: '', // 帐号
-  password: '' // 密码
+  account: localCache.getCache('account') ?? '', // 帐号
+  password: localCache.getCache('password') ?? '' // 密码
 })
 // 表单验证规则
 const accountFormRules = reactive<FormRules>({
@@ -97,7 +98,7 @@ const accountFormRules = reactive<FormRules>({
     }
   ]
 })
-const isSavePassword = ref(false) // 是否记住密码
+const isSavePassword = ref(localCache.getCache('account') ? true : false) // 是否记住密码
 const accountFormRef = ref<InstanceType<typeof ElForm>>() // 帐号表单 ref
 const loginStore = useLoginStore()
 
@@ -116,10 +117,18 @@ const loginBtn = () => {
       // 验证通过
       if (valid) {
         // 发送登录接口
-        loginStore.loginAccountAction({
-          name: accountForm.account,
-          password: accountForm.password
-        })
+        loginStore
+          .loginAccountAction({
+            name: accountForm.account,
+            password: accountForm.password
+          })
+          .then(() => {
+            if (isSavePassword.value) {
+              // 记住账号和密码
+              localCache.setCache('account', accountForm.account)
+              localCache.setCache('password', accountForm.password)
+            }
+          })
       } else {
         ElMessage.error('请输入正确格式内容')
       }
