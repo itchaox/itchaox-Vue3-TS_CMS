@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-14 10:48:23
  * @LastEditors: wc
- * @LastEditTime: 2022-11-15 15:45:52
+ * @LastEditTime: 2022-11-15 17:12:32
  */
 
 import hyRequest from '..'
@@ -20,5 +20,11 @@ export function accountLogin(data: IAccount) {
 export function getUserInfoById(id: number) {
   return hyRequest.get({
     url: '/users/' + id
+  })
+}
+
+export function getUserMenusByRoleId(id: number) {
+  return hyRequest.get({
+    url: `/role/${id}/menu`
   })
 }

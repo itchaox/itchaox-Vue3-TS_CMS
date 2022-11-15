@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-10 09:35:10
  * @LastEditors: wc
- * @LastEditTime: 2022-11-15 13:59:02
+ * @LastEditTime: 2022-11-15 17:14:17
 -->
 <template>
   <div class="main">
@@ -16,10 +16,7 @@
 <script setup lang="ts">
 import { TOKEN } from '@/global/constants'
 import router from '@/router'
-import useCounterStore from '@/store/counter'
 import { localCache } from '@/utils/cache'
-
-const counterStore = useCounterStore()
 
 function exitLogin() {
   // 1. 删除 token
