@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-10 09:35:22
  * @LastEditors: wc
- * @LastEditTime: 2022-11-15 10:17:10
+ * @LastEditTime: 2022-11-15 10:59:08
 -->
 <template>
   <div class="login">
@@ -106,6 +106,10 @@ const tabsClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event)
 }
 
+/**
+ * @desc: 登录按钮
+ * @author: wc
+ */
 const loginBtn = () => {
   if (loginModel.value === 'account') {
     accountFormRef.value?.validate((valid) => {
@@ -116,10 +120,8 @@ const loginBtn = () => {
           name: accountForm.account,
           password: accountForm.password
         })
-        console.log('success')
       } else {
         ElMessage.error('请输入正确格式内容')
-        console.log('fail')
       }
     })
   } else {
