@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-14 11:02:08
  * @LastEditors: wc
- * @LastEditTime: 2022-11-15 17:19:59
+ * @LastEditTime: 2022-11-16 15:03:01
  */
 
 import { defineStore } from 'pinia'
@@ -28,8 +28,8 @@ interface ILoginStore {
 const useLoginStore = defineStore('login', {
   state: (): ILoginStore => ({
     token: localCache.getCache(TOKEN) ?? '', // 如果有缓存 token, 则直接读取 token
-    userInfo: {}, // 用户信息
-    userMenus: [] // 用户菜单
+    userInfo: localCache.getCache('userInfo') ?? {}, // 用户信息
+    userMenus: localCache.getCache('userMenus') ?? [] // 用户菜单
   }),
   actions: {
     async loginAccountAction(account: IAccount) {
@@ -44,11 +44,12 @@ const useLoginStore = defineStore('login', {
       // 3. 获取用户详细信息(role 信息)
       const userInfoData = await getUserInfoById(id)
       this.userInfo = userInfoData.data
+      localCache.setCache('userInfo', userInfoData.data)
 
       // 4. 获取菜单树
       const userMenusData = await getUserMenusByRoleId(this.userInfo.role.id)
       this.userMenus = userMenusData.data
-      console.log(this.userMenus)
+      localCache.setCache('userMenus', userMenusData.data)
 
       // 5. 跳转至 main 页面
       router.push('/main')
