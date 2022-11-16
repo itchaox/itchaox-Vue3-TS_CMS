@@ -4,19 +4,22 @@
  * @Author: wc
  * @Date: 2022-11-16 09:51:44
  * @LastEditors: wc
- * @LastEditTime: 2022-11-16 15:17:40
+ * @LastEditTime: 2022-11-16 16:59:50
 -->
 <template>
   <div class="menu">
     <!-- 1. logo -->
     <div class="logo">
       <img class="logo-img" src="@/assets/img/logo.png" alt="logo" />
-      <div class="logo-title">Airbnb_CMS</div>
+      <div v-show="mainStore.isShowAside" class="logo-title">Airbnb_CMS</div>
     </div>
 
     <!-- 2. menu -->
-    <template v-for="menuItem in userMenus" :key="menuItem.id">
-      <el-menu :default-active="userMenus[0].children[0].id + ''">
+    <el-menu
+      :default-active="userMenus[0].children[0].id + ''"
+      :collapse="!mainStore.isShowAside"
+    >
+      <template v-for="menuItem in userMenus" :key="menuItem.id">
         <el-sub-menu :index="menuItem.id + ''">
           <template #title>
             <el-icon>
@@ -34,28 +37,32 @@
             }}</el-menu-item>
           </template>
         </el-sub-menu>
-      </el-menu>
-    </template>
+      </template>
+    </el-menu>
   </div>
 </template>
 
 <script setup lang="ts">
 import useLoginStore from '@/store/login/login'
+import useMainStore from '@/store/main/main'
 
 const loginStore = useLoginStore()
 const userMenus = loginStore.userMenus
+
+const mainStore = useMainStore()
 </script>
 
 <style lang="less" scoped>
 .menu {
   height: 100%;
-  background-color: #5b88c7;
+  background-color: #5089f6;
 }
 
 .logo {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 10px;
 
   .logo-img {
     width: 30px;
@@ -70,5 +77,20 @@ const userMenus = loginStore.userMenus
     font-size: 24px;
     font-weight: 500;
   }
+}
+
+.el-menu {
+  background-color: #fff;
+}
+
+.el-sub-menu {
+  .is-active {
+    background-color: #5089f6;
+    color: #fff;
+  }
+}
+
+.el-menu-item {
+  background-color: #e4f4ff;
 }
 </style>
