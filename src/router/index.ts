@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-09 17:01:59
  * @LastEditors: wc
- * @LastEditTime: 2022-11-15 11:52:11
+ * @LastEditTime: 2022-11-16 09:32:55
  */
 
 import { TOKEN } from '@/global/constants'
@@ -25,7 +25,7 @@ const router = createRouter({
     },
     {
       path: '/main',
-      component: () => import('../views/main/Main.vue')
+      component: () => import('../views/main/main.vue')
     },
     {
       path: '/:pathMatch(.*)',
