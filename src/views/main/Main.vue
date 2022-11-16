@@ -3,8 +3,8 @@
  * @Version: v1.00
  * @Author: wc
  * @Date: 2022-11-10 09:35:10
- * @LastEditors: wc
- * @LastEditTime: 2022-11-16 21:15:47
+ * @LastEditors: wangchao
+ * @LastEditTime: 2022-11-16 22:40:47
 -->
 <template>
   <div class="main">
@@ -56,13 +56,6 @@ const mainStore = useMainStore()
 
   .main-content {
     height: 100%;
-  }
-
-  .el-aside {
-  }
-
-  .el-header {
-    background-color: goldenrod;
   }
 
   .el-main {
