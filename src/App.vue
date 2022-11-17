@@ -4,13 +4,11 @@
  * @Author: wc
  * @Date: 2022-11-08 14:06:51
  * @LastEditors: wc
- * @LastEditTime: 2022-11-10 17:09:13
+ * @LastEditTime: 2022-11-17 13:04:06
 -->
 <template>
   <div class="app">
-    <!-- <router-link to="/login">login</router-link> -->
-    <!-- <router-link to="/main">main</router-link> -->
-    <router-view></router-view>
+    <router-view />
   </div>
 </template>
 

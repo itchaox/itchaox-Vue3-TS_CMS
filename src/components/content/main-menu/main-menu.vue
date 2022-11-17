@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-16 09:51:44
  * @LastEditors: wc
- * @LastEditTime: 2022-11-16 16:59:50
+ * @LastEditTime: 2022-11-17 13:17:58
 -->
 <template>
   <div class="menu">
@@ -32,9 +32,11 @@
             v-for="subMenuItem in menuItem.children"
             :key="subMenuItem.id"
           >
-            <el-menu-item :index="subMenuItem.id + ''">{{
-              subMenuItem.name
-            }}</el-menu-item>
+            <el-menu-item
+              :index="subMenuItem.id + ''"
+              @click="changeSubMenuItem(subMenuItem)"
+              >{{ subMenuItem.name }}</el-menu-item
+            >
           </template>
         </el-sub-menu>
       </template>
@@ -43,6 +45,7 @@
 </template>
 
 <script setup lang="ts">
+import router from '@/router'
 import useLoginStore from '@/store/login/login'
 import useMainStore from '@/store/main/main'
 
@@ -50,6 +53,15 @@ const loginStore = useLoginStore()
 const userMenus = loginStore.userMenus
 
 const mainStore = useMainStore()
+
+/**
+ * @desc: 切换子菜单
+ * @param { Object } subMenuItem 子菜单元素
+ * @author: wc
+ */
+const changeSubMenuItem = (subMenuItem: any) => {
+  router.push(subMenuItem.url)
+}
 </script>
 
 <style lang="less" scoped>
