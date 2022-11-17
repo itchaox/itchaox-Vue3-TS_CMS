@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-09 17:01:59
  * @LastEditors: wc
- * @LastEditTime: 2022-11-16 09:32:55
+ * @LastEditTime: 2022-11-17 10:42:21
  */
 
 import { TOKEN } from '@/global/constants'
@@ -36,13 +36,10 @@ const router = createRouter({
 
 // 导航守卫
 router.beforeEach((to, from) => {
-  // 登录成功， 才允许跳转至 main 页面， 否则直接跳转至 login 页面
-  if (to.path === '/main') {
-    const token = localCache.getCache(TOKEN) // 获取缓存中的 token
-    if (!token) {
-      // 无 token， 则跳转至 login 页面
-      return '/login'
-    }
+  // 无 token, 则跳转至 login 页面
+  const token = localCache.getCache(TOKEN) // 获取缓存中的 token
+  if (to.path.startsWith('/main') && !token) {
+    return '/login'
   }
 })
 

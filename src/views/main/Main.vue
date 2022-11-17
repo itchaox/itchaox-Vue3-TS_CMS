@@ -3,8 +3,8 @@
  * @Version: v1.00
  * @Author: wc
  * @Date: 2022-11-10 09:35:10
- * @LastEditors: wangchao
- * @LastEditTime: 2022-11-16 22:40:47
+ * @LastEditors: wc
+ * @LastEditTime: 2022-11-17 09:40:21
 -->
 <template>
   <div class="main">
@@ -22,7 +22,6 @@
         <el-main>Main</el-main>
       </el-container>
     </el-container>
-    <!-- <button @click="exitLogin">退出登录1</button> -->
   </div>
 </template>
 
@@ -38,14 +37,6 @@ import mainMenu from '@/components/content/main-menu/main-menu.vue'
 import { TOKEN } from '@/global/constants'
 import { localCache } from '@/utils/cache'
 import useMainStore from '@/store/main/main'
-
-const exitLogin = () => {
-  // 1. 删除 token
-  localCache.removeCache(TOKEN)
-
-  // 2. 跳转至登录页
-  router.push('/login')
-}
 
 const mainStore = useMainStore()
 </script>

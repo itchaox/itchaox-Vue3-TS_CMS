@@ -3,8 +3,8 @@
  * @Version: v1.00
  * @Author: wc
  * @Date: 2022-11-16 09:52:33
- * @LastEditors: wangchao
- * @LastEditTime: 2022-11-16 22:43:23
+ * @LastEditors: wc
+ * @LastEditTime: 2022-11-17 09:53:52
 -->
 <template>
   <div class="header">
@@ -32,9 +32,18 @@
             </div>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>退出系统</el-dropdown-item>
-                <el-dropdown-item divided>个人信息</el-dropdown-item>
-                <el-dropdown-item>修改密码</el-dropdown-item>
+                <el-dropdown-item @click="exitSystem">
+                  <el-icon><CircleClose /></el-icon>
+                  <span>退出系统</span>
+                </el-dropdown-item>
+                <el-dropdown-item divided>
+                  <el-icon><UserFilled /></el-icon>
+                  <span> 个人信息</span>
+                </el-dropdown-item>
+                <el-dropdown-item>
+                  <el-icon><Edit /></el-icon>
+                  <span>修改密码</span>
+                </el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -46,8 +55,12 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+
 import useMainStore from '@/store/main/main'
 import useLoginStore from '@/store/login/login'
+import { localCache } from '@/utils/cache'
+import { TOKEN } from '@/global/constants'
+import router from '@/router'
 
 const mainStore = useMainStore()
 const isShowAside = ref(true) // 是否展示侧边栏
@@ -57,6 +70,15 @@ const collapseBtn = () => {
 }
 
 const loginStore = useLoginStore()
+
+/**
+ * @desc: 退出系统
+ * @author: wc
+ */
+const exitSystem = () => {
+  localCache.removeCache(TOKEN) // 清除 token
+  router.push('/login') // 返回至登录页
+}
 </script>
 
 <style lang="less" scoped>
