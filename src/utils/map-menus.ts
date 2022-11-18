@@ -4,10 +4,11 @@
  * @Author: wc
  * @Date: 2022-11-18 09:42:01
  * @LastEditors: wc
- * @LastEditTime: 2022-11-18 13:30:53
+ * @LastEditTime: 2022-11-18 15:14:48
  */
 
 import type { RouteRecordRaw } from 'vue-router'
+import { localCache } from './cache'
 
 /**
  * @desc: 加载本地路由
@@ -76,7 +77,7 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
  * @return { any }  子菜单
  * @author: wc
  */
-export function mapPathToMenu(path: string, userMenus: any[]) {
+export function mapPathToMenu(path: string, userMenus: any[]): any {
   for (const menu of userMenus) {
     for (const submenu of menu.children) {
       if (submenu.url === path) {
@@ -84,4 +85,24 @@ export function mapPathToMenu(path: string, userMenus: any[]) {
       }
     }
   }
+}
+
+/**
+ * @desc: 根据路径去生成面包屑
+ * @param { string } path
+ * @return { any[] } 面包屑数组
+ * @author: wc
+ */
+export function mapPathToBreadcrumb(path: string): any {
+  const BreadcrumbList: any[] = []
+  const userMenus = localCache.getCache('userMenus')
+  for (const menu of userMenus) {
+    for (const subMenu of menu.children) {
+      if (subMenu.url === path) {
+        BreadcrumbList.push(menu)
+        BreadcrumbList.push(subMenu)
+      }
+    }
+  }
+  return BreadcrumbList
 }

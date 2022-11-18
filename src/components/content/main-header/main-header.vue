@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-16 09:52:33
  * @LastEditors: wc
- * @LastEditTime: 2022-11-17 09:53:52
+ * @LastEditTime: 2022-11-18 15:31:34
 -->
 <template>
   <div class="header">
@@ -13,7 +13,12 @@
       <el-icon v-show="!isShowAside"><Expand /></el-icon>
     </div>
     <div class="content">
-      <div class="breadcrumb">面包屑</div>
+      <!-- 面包屑 -->
+      <el-breadcrumb separator-icon="ArrowRight">
+        <template v-for="item in BreadcrumbList" :key="item.id">
+          <el-breadcrumb-item>{{ item.name }}</el-breadcrumb-item>
+        </template>
+      </el-breadcrumb>
       <!-- 个人信息 -->
       <div class="info">
         <div class="info-icon fx-vc">
@@ -54,13 +59,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 import useMainStore from '@/store/main/main'
 import useLoginStore from '@/store/login/login'
 import { localCache } from '@/utils/cache'
 import { TOKEN } from '@/global/constants'
 import router from '@/router'
+import { useRoute } from 'vue-router'
+import { mapPathToBreadcrumb } from '@/utils/map-menus'
 
 const mainStore = useMainStore()
 const isShowAside = ref(true) // 是否展示侧边栏
@@ -79,6 +86,12 @@ const exitSystem = () => {
   localCache.removeCache(TOKEN) // 清除 token
   router.push('/login') // 返回至登录页
 }
+
+const route = useRoute()
+// computed 计算属性：当依赖发生改变时，自动重新获取
+const BreadcrumbList = computed(() => {
+  return mapPathToBreadcrumb(route.path)
+}) // 获取面包屑数组
 </script>
 
 <style lang="less" scoped>
@@ -92,6 +105,7 @@ const exitSystem = () => {
 .content {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: calc(100% - 70px);
 }
 
