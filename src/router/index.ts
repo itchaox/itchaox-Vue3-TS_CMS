@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-09 17:01:59
  * @LastEditors: wc
- * @LastEditTime: 2022-11-17 13:55:51
+ * @LastEditTime: 2022-11-18 10:08:02
  */
 
 import { TOKEN } from '@/global/constants'
@@ -25,6 +25,7 @@ const router = createRouter({
     },
     {
       path: '/main',
+      name: 'main', // 可根据 name 加入子路由
       component: () => import('../views/main/main.vue')
     },
     {
