@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-16 09:51:44
  * @LastEditors: wc
- * @LastEditTime: 2022-11-17 13:17:58
+ * @LastEditTime: 2022-11-18 13:36:41
 -->
 <template>
   <div class="menu">
@@ -15,10 +15,7 @@
     </div>
 
     <!-- 2. menu -->
-    <el-menu
-      :default-active="userMenus[0].children[0].id + ''"
-      :collapse="!mainStore.isShowAside"
-    >
+    <el-menu :default-active="defaultActive" :collapse="!mainStore.isShowAside">
       <template v-for="menuItem in userMenus" :key="menuItem.id">
         <el-sub-menu :index="menuItem.id + ''">
           <template #title>
@@ -48,6 +45,9 @@
 import router from '@/router'
 import useLoginStore from '@/store/login/login'
 import useMainStore from '@/store/main/main'
+import { mapPathToMenu } from '@/utils/map-menus'
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 
 const loginStore = useLoginStore()
 const userMenus = loginStore.userMenus
@@ -60,8 +60,13 @@ const mainStore = useMainStore()
  * @author: wc
  */
 const changeSubMenuItem = (subMenuItem: any) => {
-  router.push(subMenuItem.url)
+  router.push(subMenuItem.url) // 跳转到对应子菜单路由
 }
+
+const route = useRoute()
+const pathMenu = mapPathToMenu(route.path, userMenus) // 获取路由菜单
+
+const defaultActive = ref(pathMenu.id + '') // 默认菜单导航
 </script>
 
 <style lang="less" scoped>

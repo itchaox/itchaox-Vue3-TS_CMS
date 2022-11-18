@@ -4,10 +4,9 @@
  * @Author: wc
  * @Date: 2022-11-18 09:42:01
  * @LastEditors: wc
- * @LastEditTime: 2022-11-18 11:08:33
+ * @LastEditTime: 2022-11-18 13:30:53
  */
 
-import router from '@/router'
 import type { RouteRecordRaw } from 'vue-router'
 
 /**
@@ -63,9 +62,26 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
 
       // 判断获取第一个路由
       if (!firstMenu && route) {
-        firstMenu = route
+        firstMenu = submenu
       }
     }
   }
   return routes
+}
+
+/**
+ * @desc: 根据路径去匹配需要显示的菜单
+ * @param { string } path 路径
+ * @param { any } userMenus 用户菜单
+ * @return { any }  子菜单
+ * @author: wc
+ */
+export function mapPathToMenu(path: string, userMenus: any[]) {
+  for (const menu of userMenus) {
+    for (const submenu of menu.children) {
+      if (submenu.url === path) {
+        return submenu
+      }
+    }
+  }
 }

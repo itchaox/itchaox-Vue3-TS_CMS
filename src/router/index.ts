@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-09 17:01:59
  * @LastEditors: wc
- * @LastEditTime: 2022-11-18 11:12:33
+ * @LastEditTime: 2022-11-18 11:48:18
  */
 
 import { TOKEN } from '@/global/constants'
@@ -46,7 +46,7 @@ router.beforeEach((to, from) => {
 
   // 进入 main 页面则跳转至 第一个子路由页面
   if (to.path === '/main') {
-    return firstMenu.path
+    return firstMenu.url
   }
 })
 
