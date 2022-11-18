@@ -4,11 +4,11 @@ import router from './router'
 
 import 'normalize.css'
 import './assets/css/index.less'
-import pinia from './store'
-import registerIcons from './global/register-icons'
+import store from './store'
+import icons from './global/register-icons'
 
 const app = createApp(App)
-app.use(registerIcons) // 注册 element-plus icon
-app.use(router)
-app.use(pinia)
-app.mount('#app')
+app.use(icons) // 注册 element-plus icon
+app.use(store) // 注册状态
+app.use(router) // 注册路由
+app.mount('#app') // 挂载页面到 app
