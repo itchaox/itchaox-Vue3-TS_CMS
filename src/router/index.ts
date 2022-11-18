@@ -4,11 +4,12 @@
  * @Author: wc
  * @Date: 2022-11-09 17:01:59
  * @LastEditors: wc
- * @LastEditTime: 2022-11-18 10:08:02
+ * @LastEditTime: 2022-11-18 11:12:33
  */
 
 import { TOKEN } from '@/global/constants'
 import { localCache } from '@/utils/cache'
+import { firstMenu } from '@/utils/map-menus'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 // 创建路由实例
@@ -41,6 +42,11 @@ router.beforeEach((to, from) => {
   const token = localCache.getCache(TOKEN) // 获取缓存中的 token
   if (to.path.startsWith('/main') && !token) {
     return '/login'
+  }
+
+  // 进入 main 页面则跳转至 第一个子路由页面
+  if (to.path === '/main') {
+    return firstMenu.path
   }
 })
 

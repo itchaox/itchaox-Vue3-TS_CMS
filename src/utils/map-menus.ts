@@ -4,9 +4,10 @@
  * @Author: wc
  * @Date: 2022-11-18 09:42:01
  * @LastEditors: wc
- * @LastEditTime: 2022-11-18 09:59:03
+ * @LastEditTime: 2022-11-18 11:08:33
  */
 
+import router from '@/router'
 import type { RouteRecordRaw } from 'vue-router'
 
 /**
@@ -39,6 +40,8 @@ function loadLocalRoutes(): RouteRecordRaw[] {
  * 3. 根据菜单去匹配所有路由数组中，应该添加那些路由，到实际加载路由中
  */
 
+export let firstMenu: any = null // 第一个路由
+
 /**
  * @desc: 实现动态路由
  * @param { any[] } userMenus
@@ -56,6 +59,11 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
       const route = localRoutes.find((item) => item.path === submenu.url)
       if (route) {
         routes.push(route)
+      }
+
+      // 判断获取第一个路由
+      if (!firstMenu && route) {
+        firstMenu = route
       }
     }
   }
