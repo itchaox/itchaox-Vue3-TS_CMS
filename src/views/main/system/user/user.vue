@@ -4,15 +4,17 @@
  * @Author: wc
  * @Date: 2022-11-17 17:07:57
  * @LastEditors: wc
- * @LastEditTime: 2022-11-17 17:09:14
+ * @LastEditTime: 2022-11-21 10:50:03
 -->
 <template>
   <div class="user">
-    <h2>user</h2>
+    <main-form></main-form>
   </div>
 </template>
 
-<script setup lang="ts" name="user"></script>
+<script setup lang="ts" name="user">
+import MainForm from '@/components/content/main-form/main-form.vue'
+</script>
 
 <style scoped>
 .user {
