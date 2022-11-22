@@ -58,12 +58,16 @@
 import type { ElForm } from 'element-plus'
 import { reactive, ref } from 'vue'
 
+// 自定义事件
+const emit = defineEmits(['searchClick', 'resetClick'])
+
+// 定义表单数据
 const form = reactive({
   name: '', // 用户名
   realname: '', // 真实姓名
   cellphone: '', // 手机号码
-  enable: 1, // 状态
-  createAt: [] // 创建时间
+  enable: '', // 状态
+  createAt: '' // 创建时间
 })
 
 const formRef = ref<InstanceType<typeof ElForm>>() // 表单 ref
@@ -74,6 +78,7 @@ const formRef = ref<InstanceType<typeof ElForm>>() // 表单 ref
  */
 const resetForm = () => {
   formRef.value?.resetFields() // 重置表单
+  emit('resetClick')
 }
 
 /**
@@ -81,7 +86,7 @@ const resetForm = () => {
  * @author: wc
  */
 const searchForm = () => {
-  console.log('form', form)
+  emit('searchClick', form)
 }
 </script>
 

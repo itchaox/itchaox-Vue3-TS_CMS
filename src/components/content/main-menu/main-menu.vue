@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-16 09:51:44
  * @LastEditors: wc
- * @LastEditTime: 2022-11-18 13:36:41
+ * @LastEditTime: 2022-11-22 16:50:16
 -->
 <template>
   <div class="menu">
@@ -45,6 +45,7 @@
 import router from '@/router'
 import useLoginStore from '@/store/login/login'
 import useMainStore from '@/store/main/main'
+import { localCache } from '@/utils/cache'
 import { mapPathToMenu } from '@/utils/map-menus'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'

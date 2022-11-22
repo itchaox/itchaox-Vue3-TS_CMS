@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-21 14:43:19
  * @LastEditors: wc
- * @LastEditTime: 2022-11-22 15:41:40
+ * @LastEditTime: 2022-11-22 16:50:58
 -->
 <template>
   <div class="main-table">
@@ -74,6 +74,7 @@ import useSystemStore from '@/store/main/system/system'
 import { storeToRefs } from 'pinia'
 import { formatUTC } from '@/utils/format'
 import { ref } from 'vue'
+import { localCache } from '@/utils/cache'
 
 const currentPage = ref(1) // 当前页码
 const pageSize = ref(10) // 页面大小
@@ -102,14 +103,21 @@ function handleCurrentChange() {
  * @desc: 获取用户列表
  * @author: wc
  */
-function getUserList() {
+function getUserList(formData?: any) {
+  // 保存表单搜索条件需要思考下
+  // localCache.setCache('formData', formData) // 缓存表格数据
+  // const _formData = localCache.getCache('formData') // 获取缓存表格数据
   const size = pageSize.value
   const offset = (currentPage.value - 1) * size
   systemStore.getUserListAction({
     size,
-    offset
+    offset,
+    ...formData
   })
 }
+
+// 暴露事件
+defineExpose({ getUserList })
 </script>
 
 <style lang="less" scoped>
