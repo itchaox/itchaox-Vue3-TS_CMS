@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-21 14:43:19
  * @LastEditors: wc
- * @LastEditTime: 2022-11-22 14:38:29
+ * @LastEditTime: 2022-11-22 15:41:40
 -->
 <template>
   <div class="main-table">
@@ -57,7 +57,15 @@
         </el-table-column>
       </el-table>
     </div>
-    <div class="pagination">分页</div>
+    <div class="pagination">
+      <el-pagination
+        v-model:current-page="currentPage"
+        :disabled="false"
+        layout="total, prev, pager, next, jumper"
+        :total="systemStore.userTotalCount"
+        @current-change="handleCurrentChange"
+      />
+    </div>
   </div>
 </template>
 
@@ -65,14 +73,43 @@
 import useSystemStore from '@/store/main/system/system'
 import { storeToRefs } from 'pinia'
 import { formatUTC } from '@/utils/format'
+import { ref } from 'vue'
+
+const currentPage = ref(1) // 当前页码
+const pageSize = ref(10) // 页面大小
 
 // 1. 发起 action， 获取 userList 数据
 const systemStore = useSystemStore()
-systemStore.getUserListAction()
+getUserList()
 
 // 2. 获取 userList 数据
 // storeToRefs() 数据改变时，重新刷新页面
 const { userList } = storeToRefs(systemStore)
+
+/**
+ * @desc: 页码修改
+ * @author: wc
+ */
+function handleCurrentChange() {
+  getUserList()
+}
+
+/**
+ * 网络请求
+ */
+
+/**
+ * @desc: 获取用户列表
+ * @author: wc
+ */
+function getUserList() {
+  const size = pageSize.value
+  const offset = (currentPage.value - 1) * size
+  systemStore.getUserListAction({
+    size,
+    offset
+  })
+}
 </script>
 
 <style lang="less" scoped>
@@ -91,6 +128,8 @@ const { userList } = storeToRefs(systemStore)
     padding: 0;
   }
   .pagination {
+    display: flex;
+    justify-content: flex-end;
     margin-top: 20px;
   }
 }

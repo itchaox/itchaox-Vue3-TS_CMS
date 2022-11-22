@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-21 15:19:49
  * @LastEditors: wc
- * @LastEditTime: 2022-11-21 15:36:28
+ * @LastEditTime: 2022-11-22 15:58:43
  */
 
 import { getUserList } from '@/service/main/system/system'
@@ -21,8 +21,8 @@ const useSystemStore = defineStore('system', {
   }),
 
   actions: {
-    async getUserListAction() {
-      const res = await getUserList({})
+    async getUserListAction(data: any) {
+      const res = await getUserList(data)
       const { list, totalCount } = res.data
       this.userList = list
       this.userTotalCount = totalCount

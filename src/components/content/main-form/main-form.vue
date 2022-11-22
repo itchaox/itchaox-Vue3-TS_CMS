@@ -76,6 +76,10 @@ const resetForm = () => {
   formRef.value?.resetFields() // 重置表单
 }
 
+/**
+ * @desc: 查询表单
+ * @author: wc
+ */
 const searchForm = () => {
   console.log('form', form)
 }
