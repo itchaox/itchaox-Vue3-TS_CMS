@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-21 14:43:19
  * @LastEditors: wc
- * @LastEditTime: 2022-11-22 11:45:11
+ * @LastEditTime: 2022-11-22 14:38:29
 -->
 <template>
   <div class="main-table">
@@ -39,8 +39,16 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createAt" label="创建时间" align="center" />
-        <el-table-column prop="updateAt" label="更新时间" align="center" />
+        <el-table-column prop="createAt" label="创建时间" align="center">
+          <template #default="scope">
+            {{ formatUTC(scope.row.createAt) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="updateAt" label="更新时间" align="center">
+          <template #default="scope">
+            {{ formatUTC(scope.row.updateAt) }}
+          </template>
+        </el-table-column>
         <el-table-column prop="name" label="操作" width="180" align="center">
           <template #default="scope">
             <el-button text type="primary" icon="edit">编辑</el-button>
@@ -56,6 +64,7 @@
 <script setup lang="ts">
 import useSystemStore from '@/store/main/system/system'
 import { storeToRefs } from 'pinia'
+import { formatUTC } from '@/utils/format'
 
 // 1. 发起 action， 获取 userList 数据
 const systemStore = useSystemStore()
