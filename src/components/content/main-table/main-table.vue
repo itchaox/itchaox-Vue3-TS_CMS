@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-21 14:43:19
  * @LastEditors: wc
- * @LastEditTime: 2022-11-21 15:54:42
+ * @LastEditTime: 2022-11-22 11:45:11
 -->
 <template>
   <div class="main-table">
@@ -12,11 +12,44 @@
       <h2 class="title">用户列表</h2>
       <el-button type="primary">新建用户</el-button>
     </div>
-    <div class="table">表格</div>
+    <div class="table">
+      <el-table :data="userList" border style="width: 100%">
+        <el-table-column type="selection" width="60" align="center" />
+        <el-table-column type="index" label="序号" width="80" align="center" />
+        <el-table-column prop="name" label="名字" width="130" align="center" />
+        <el-table-column
+          prop="realname"
+          label="真实姓名"
+          width="130"
+          align="center"
+        />
+        <el-table-column
+          prop="cellphone"
+          label="手机号码"
+          width="180"
+          align="center"
+        />
+        <el-table-column prop="enable" label="状态" width="100" align="center">
+          <template #default="scope">
+            <el-tag
+              size="large"
+              :type="scope.row.enable === 1 ? 'success' : 'danger'"
+            >
+              {{ scope.row.enable === 1 ? '启用' : '未启用' }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="createAt" label="创建时间" align="center" />
+        <el-table-column prop="updateAt" label="更新时间" align="center" />
+        <el-table-column prop="name" label="操作" width="180" align="center">
+          <template #default="scope">
+            <el-button text type="primary" icon="edit">编辑</el-button>
+            <el-button text type="danger" icon="delete">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
     <div class="pagination">分页</div>
-    <ul v-for="item in userList" :key="item.id">
-      <li>{{ item.name }}</li>
-    </ul>
   </div>
 </template>
 
@@ -37,10 +70,19 @@ const { userList } = storeToRefs(systemStore)
 .main-table {
   margin-top: 20px;
   padding: 20px;
+  background-color: #fff;
   .header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    margin-bottom: 10px;
+  }
+
+  .is-text {
+    padding: 0;
+  }
+  .pagination {
+    margin-top: 20px;
   }
 }
 </style>
