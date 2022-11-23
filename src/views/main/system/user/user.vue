@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-17 17:07:57
  * @LastEditors: wc
- * @LastEditTime: 2022-11-22 17:00:57
+ * @LastEditTime: 2022-11-23 09:42:51
 -->
 <template>
   <div class="user">
@@ -34,7 +34,7 @@ function searchClick(formData: any) {
  * @author: wc
  */
 function resetClick() {
-  tableRef.value?.getUserList({})
+  tableRef.value?.getUserList()
 }
 </script>
 

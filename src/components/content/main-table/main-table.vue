@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-21 14:43:19
  * @LastEditors: wc
- * @LastEditTime: 2022-11-22 16:50:58
+ * @LastEditTime: 2022-11-23 10:38:00
 -->
 <template>
   <div class="main-table">
@@ -52,7 +52,13 @@
         <el-table-column prop="name" label="操作" width="180" align="center">
           <template #default="scope">
             <el-button text type="primary" icon="edit">编辑</el-button>
-            <el-button text type="danger" icon="delete">删除</el-button>
+            <el-button
+              text
+              type="danger"
+              icon="delete"
+              @click="deleteClick(scope.row.id)"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -70,11 +76,19 @@
 </template>
 
 <script setup lang="ts">
-import useSystemStore from '@/store/main/system/system'
-import { storeToRefs } from 'pinia'
-import { formatUTC } from '@/utils/format'
+// 官方依赖
 import { ref } from 'vue'
-import { localCache } from '@/utils/cache'
+import { storeToRefs } from 'pinia'
+
+// 状态管理
+import useSystemStore from '@/store/main/system/system'
+
+// 接口请求
+import { deleteUser } from '@/service/main/system/system'
+
+// 公共方法
+import { formatUTC } from '@/utils/format'
+// import { localCache } from '@/utils/cache'
 
 const currentPage = ref(1) // 当前页码
 const pageSize = ref(10) // 页面大小
@@ -93,6 +107,14 @@ const { userList } = storeToRefs(systemStore)
  */
 function handleCurrentChange() {
   getUserList()
+}
+
+/**
+ * @desc: 删除用户
+ * @author: wc
+ */
+async function deleteClick(id: number) {
+  systemStore.deleteUserAction(id)
 }
 
 /**
