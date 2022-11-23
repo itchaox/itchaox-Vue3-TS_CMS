@@ -4,21 +4,25 @@
  * @Author: wc
  * @Date: 2022-11-17 17:07:57
  * @LastEditors: wc
- * @LastEditTime: 2022-11-23 09:42:51
+ * @LastEditTime: 2022-11-23 16:41:16
 -->
 <template>
   <div class="user">
     <main-form @search-click="searchClick" @reset-click="resetClick" />
-    <main-table ref="tableRef" />
+    <main-table ref="tableRef" @add-user-click="addUserClick" />
+    <main-dialog ref="dialogRef" />
   </div>
 </template>
 
 <script setup lang="ts" name="user">
-import MainForm from '@/components/content/main-form/main-form.vue'
-import MainTable from '@/components/content/main-table/main-table.vue'
 import { ref } from 'vue'
 
+import MainForm from '@/components/content/main-form/main-form.vue'
+import MainTable from '@/components/content/main-table/main-table.vue'
+import MainDialog from '@/components/content/main-dialog/main-dialog.vue'
+
 const tableRef = ref<InstanceType<typeof MainTable>>()
+const dialogRef = ref<InstanceType<typeof MainDialog>>()
 
 /**
  * @desc: 搜索按钮
@@ -35,6 +39,10 @@ function searchClick(formData: any) {
  */
 function resetClick() {
   tableRef.value?.getUserList()
+}
+
+function addUserClick(isShow: boolean) {
+  dialogRef.value!.isShowDialog = isShow
 }
 </script>
 

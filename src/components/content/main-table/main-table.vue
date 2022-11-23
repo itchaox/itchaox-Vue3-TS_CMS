@@ -4,13 +4,13 @@
  * @Author: wc
  * @Date: 2022-11-21 14:43:19
  * @LastEditors: wc
- * @LastEditTime: 2022-11-23 10:38:00
+ * @LastEditTime: 2022-11-23 16:34:02
 -->
 <template>
   <div class="main-table">
     <div class="header">
       <h2 class="title">用户列表</h2>
-      <el-button type="primary">新建用户</el-button>
+      <el-button type="primary" @click="addUserClick">新建用户</el-button>
     </div>
     <div class="table">
       <el-table :data="userList" border style="width: 100%">
@@ -83,15 +83,14 @@ import { storeToRefs } from 'pinia'
 // 状态管理
 import useSystemStore from '@/store/main/system/system'
 
-// 接口请求
-import { deleteUser } from '@/service/main/system/system'
-
 // 公共方法
 import { formatUTC } from '@/utils/format'
 // import { localCache } from '@/utils/cache'
 
 const currentPage = ref(1) // 当前页码
 const pageSize = ref(10) // 页面大小
+
+const emit = defineEmits(['addUserClick'])
 
 // 1. 发起 action， 获取 userList 数据
 const systemStore = useSystemStore()
@@ -117,6 +116,11 @@ async function deleteClick(id: number) {
   systemStore.deleteUserAction(id)
 }
 
+function addUserClick() {
+  emit('addUserClick', true)
+  console.log('addUserClick')
+}
+
 /**
  * 网络请求
  */
@@ -138,7 +142,7 @@ function getUserList(formData?: any) {
   })
 }
 
-// 暴露事件
+// 暴露属性
 defineExpose({ getUserList })
 </script>
 
