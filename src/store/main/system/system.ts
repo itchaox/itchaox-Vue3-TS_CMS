@@ -4,10 +4,10 @@
  * @Author: wc
  * @Date: 2022-11-21 15:19:49
  * @LastEditors: wc
- * @LastEditTime: 2022-11-24 14:24:21
+ * @LastEditTime: 2022-11-24 15:58:45
  */
 
-import { deleteUser, getUserList } from '@/service/main/system/system'
+import { addUser, deleteUser, getUserList } from '@/service/main/system/system'
 import { defineStore } from 'pinia'
 
 interface ISystemState {
@@ -35,16 +35,29 @@ const useSystemStore = defineStore('system', {
     },
 
     /**
-     * @desc: 删除数据
+     * @desc: 删除用户
      * @param {number} id
      * @author: wc
      */
     async deleteUserAction(id: number) {
-      // 1. 删除数据
+      // 1. 删除用户
       await deleteUser(id)
 
       // 2. 重新请求新数据
-      this.getUserListAction({ offset: 0, size: 0 })
+      this.getUserListAction({ offset: 0, size: 10 })
+    },
+
+    /**
+     * @desc: 新增用户
+     * @param {any} data
+     * @author: wc
+     */
+    async addUserAction(data: any) {
+      // 1. 新增用户
+      await addUser(data)
+
+      // 2. 重新请求新数据
+      this.getUserListAction({ offset: 0, size: 10 })
     }
   }
 })

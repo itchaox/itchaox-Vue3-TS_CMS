@@ -4,12 +4,18 @@
  * @Author: wc
  * @Date: 2022-11-23 11:23:35
  * @LastEditors: wc
- * @LastEditTime: 2022-11-24 14:26:08
+ * @LastEditTime: 2022-11-24 16:00:08
 -->
 
 <template>
   <div class="main-dialog">
-    <el-dialog v-model="isShowDialog" title="新建角色" width="30%" center>
+    <el-dialog
+      v-model="isShowDialog"
+      title="新建角色"
+      width="30%"
+      center
+      destroy-on-close
+    >
       <div class="form">
         <el-form
           size="large"
@@ -46,12 +52,9 @@
               size="large"
               style="width: 100%"
             >
-              <el-option
-                v-for="item in mainStore.roleList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
+              <template v-for="item in roleList" :key="item.id">
+                <el-option :label="item.name" :value="item.id" />
+              </template>
             </el-select>
           </el-form-item>
           <el-form-item label="选择部门" prop="departmentId">
@@ -61,22 +64,17 @@
               size="large"
               style="width: 100%"
             >
-              <el-option
-                v-for="item in mainStore.departmentList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
+              <template v-for="item in departmentList" :key="item.id">
+                <el-option :label="item.name" :value="item.id" />
+              </template>
             </el-select>
           </el-form-item>
         </el-form>
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="isShowDialog = false">取消</el-button>
-          <el-button type="primary" @click="isShowDialog = false">
-            确定
-          </el-button>
+          <el-button @click="cancel">取消</el-button>
+          <el-button type="primary" @click="confirm"> 确定 </el-button>
         </span>
       </template>
     </el-dialog>
@@ -85,11 +83,13 @@
 
 <script setup lang="ts">
 import useMainStore from '@/store/main/main'
+import useSystemStore from '@/store/main/system/system'
 import type { FormRules } from 'element-plus'
+import { storeToRefs } from 'pinia'
 import { reactive, ref } from 'vue'
 
-const isShowDialog = ref(true) // 对话框显隐
-const formData = reactive({
+const isShowDialog = ref(false) // 对话框显隐
+let formData = reactive({
   name: '',
   realname: '',
   password: '',
@@ -98,8 +98,11 @@ const formData = reactive({
   departmentId: ''
 })
 
+// 获取角色列表/部门列表
 const mainStore = useMainStore()
+const { roleList, departmentList } = storeToRefs(mainStore)
 
+// 表单校验规则
 const dialogFormRules = reactive<FormRules>({
   name: [
     {
@@ -145,6 +148,28 @@ const dialogFormRules = reactive<FormRules>({
     }
   ]
 })
+
+/**
+ * @desc: 确定按钮
+ * @author: wc
+ */
+function confirm() {
+  // 新增用户
+  const systemStore = useSystemStore()
+  systemStore.addUserAction(formData)
+
+  // 关闭对话框
+  isShowDialog.value = false
+}
+
+/**
+ * @desc: 取消按钮
+ * @author: wc
+ */
+function cancel() {
+  // 关闭对话框
+  isShowDialog.value = false
+}
 
 // 暴露属性
 defineExpose({ isShowDialog })

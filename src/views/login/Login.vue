@@ -81,6 +81,7 @@ const accountForm = reactive({
   account: localCache.getCache('account') ?? '', // 帐号
   password: localCache.getCache('password') ?? '' // 密码
 })
+
 // 表单验证规则
 const accountFormRules = reactive<FormRules>({
   account: [

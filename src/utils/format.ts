@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-22 14:20:10
  * @LastEditors: wc
- * @LastEditTime: 2022-11-22 14:36:56
+ * @LastEditTime: 2022-11-24 15:32:44
  */
 
 import dayjs from 'dayjs'
@@ -17,7 +17,7 @@ dayjs.extend(utc)
  * @param { string } format 格式类型
  * @author: wc
  */
-export function formatUTC(UTCstring: string, format = 'YYYY-MM-DD hh:mm:ss') {
+export function formatUTC(UTCstring: string, format = 'YYYY-MM-DD HH:mm:ss') {
   const time = dayjs.utc(UTCstring).utcOffset(8).format(format)
   return time
 }

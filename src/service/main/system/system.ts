@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-21 15:14:45
  * @LastEditors: wc
- * @LastEditTime: 2022-11-24 14:13:40
+ * @LastEditTime: 2022-11-24 15:51:03
  */
 
 import hyRequest from '@/service'
@@ -24,5 +24,16 @@ export function getUserList(data: any) {
 export function deleteUser(id: number) {
   return hyRequest.delete({
     url: `/users/${id}`
+  })
+}
+
+/**
+ * @desc: 创建用户
+ * @author: wc
+ */
+export function addUser(data: any) {
+  return hyRequest.post({
+    url: '/users',
+    data
   })
 }
