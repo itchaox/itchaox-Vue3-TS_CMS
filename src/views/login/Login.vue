@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-10 09:35:22
  * @LastEditors: wc
- * @LastEditTime: 2022-11-18 17:25:03
+ * @LastEditTime: 2022-11-23 17:20:05
 -->
 <template>
   <div class="login">
@@ -128,6 +128,10 @@ const loginBtn = () => {
             password: accountForm.password
           })
           .then(() => {
+            //! Code Spell Checker
+            // console.log('login')
+            // console.log('loign')
+
             if (isSavePassword.value) {
               // 记住账号和密码
               localCache.setCache('account', accountForm.account)
