@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-21 14:43:19
  * @LastEditors: wc
- * @LastEditTime: 2022-11-23 16:34:02
+ * @LastEditTime: 2022-11-24 17:03:05
 -->
 <template>
   <div class="main-table">
@@ -51,7 +51,13 @@
         </el-table-column>
         <el-table-column prop="name" label="操作" width="180" align="center">
           <template #default="scope">
-            <el-button text type="primary" icon="edit">编辑</el-button>
+            <el-button
+              text
+              type="primary"
+              icon="edit"
+              @click="editClick(scope.row)"
+              >编辑</el-button
+            >
             <el-button
               text
               type="danger"
@@ -90,7 +96,7 @@ import { formatUTC } from '@/utils/format'
 const currentPage = ref(1) // 当前页码
 const pageSize = ref(10) // 页面大小
 
-const emit = defineEmits(['addUserClick'])
+const emit = defineEmits(['addUserClick', 'editUserClick'])
 
 // 1. 发起 action， 获取 userList 数据
 const systemStore = useSystemStore()
@@ -116,9 +122,20 @@ async function deleteClick(id: number) {
   systemStore.deleteUserAction(id)
 }
 
+/**
+ * @desc: 编辑用户
+ * @author: wc
+ */
+function editClick(itemData: any) {
+  emit('editUserClick', itemData)
+}
+
+/**
+ * @desc: 新增用户
+ * @author: wc
+ */
 function addUserClick() {
   emit('addUserClick', true)
-  console.log('addUserClick')
 }
 
 /**

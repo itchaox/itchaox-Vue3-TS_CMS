@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-23 11:23:35
  * @LastEditors: wc
- * @LastEditTime: 2022-11-24 16:00:08
+ * @LastEditTime: 2022-11-24 17:29:05
 -->
 
 <template>
@@ -14,7 +14,7 @@
       title="新建角色"
       width="30%"
       center
-      destroy-on-close
+      @close="cancel"
     >
       <div class="form">
         <el-form
@@ -32,7 +32,7 @@
               placeholder="请输入真实姓名"
             />
           </el-form-item>
-          <el-form-item label="密码" prop="password">
+          <el-form-item v-if="isAdd" label="密码" prop="password">
             <el-input
               v-model="formData.password"
               placeholder="请输入密码"
@@ -89,6 +89,7 @@ import { storeToRefs } from 'pinia'
 import { reactive, ref } from 'vue'
 
 const isShowDialog = ref(false) // 对话框显隐
+const isAdd = ref(true) //是不是新增操作
 let formData = reactive({
   name: '',
   realname: '',
@@ -154,12 +155,19 @@ const dialogFormRules = reactive<FormRules>({
  * @author: wc
  */
 function confirm() {
+  // 关闭对话框
+  isShowDialog.value = false
+
   // 新增用户
   const systemStore = useSystemStore()
   systemStore.addUserAction(formData)
 
-  // 关闭对话框
-  isShowDialog.value = false
+  // * 编辑接口操作
+
+  // 重置对话框表单
+  for (const key in formData) {
+    formData[key] = ''
+  }
 }
 
 /**
@@ -169,10 +177,32 @@ function confirm() {
 function cancel() {
   // 关闭对话框
   isShowDialog.value = false
+
+  // 重置对话框表单
+  for (const key in formData) {
+    formData[key] = ''
+  }
+}
+
+/**
+ * @desc: 设置对话框
+ * @param { boolean } isNew 是不是新增操作
+ * @param { any } itemData 本条数据
+ * @author: wc
+ */
+function setDialog(isNew = true, itemData?: any) {
+  isShowDialog.value = true
+  isAdd.value = true
+  if (!isNew && itemData) {
+    isAdd.value = false
+    for (const key in formData) {
+      formData[key] = itemData[key]
+    }
+  }
 }
 
 // 暴露属性
-defineExpose({ isShowDialog })
+defineExpose({ setDialog })
 </script>
 
 <style lang="less" scoped>
