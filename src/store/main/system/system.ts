@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-21 15:19:49
  * @LastEditors: wc
- * @LastEditTime: 2022-11-23 10:42:37
+ * @LastEditTime: 2022-11-24 14:24:21
  */
 
 import { deleteUser, getUserList } from '@/service/main/system/system'
@@ -14,6 +14,7 @@ interface ISystemState {
   userList: any[]
   userTotalCount: number
 }
+
 const useSystemStore = defineStore('system', {
   state: (): ISystemState => ({
     userList: [], // 用户列表

@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-23 11:23:35
  * @LastEditors: wc
- * @LastEditTime: 2022-11-24 13:33:39
+ * @LastEditTime: 2022-11-24 14:26:08
 -->
 
 <template>
@@ -47,10 +47,10 @@
               style="width: 100%"
             >
               <el-option
-                v-for="item in [{ value: '前端开发', roleId: 3 }]"
-                :key="item.value"
-                :label="item.value"
-                :value="item.roleId"
+                v-for="item in mainStore.roleList"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
               />
             </el-select>
           </el-form-item>
@@ -62,10 +62,10 @@
               style="width: 100%"
             >
               <el-option
-                v-for="item in [{ value: '研发五部', roleId: 2 }]"
-                :key="item.value"
-                :label="item.value"
-                :value="item.roleId"
+                v-for="item in mainStore.departmentList"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
               />
             </el-select>
           </el-form-item>
@@ -84,6 +84,7 @@
 </template>
 
 <script setup lang="ts">
+import useMainStore from '@/store/main/main'
 import type { FormRules } from 'element-plus'
 import { reactive, ref } from 'vue'
 
@@ -96,6 +97,8 @@ const formData = reactive({
   roleId: '',
   departmentId: ''
 })
+
+const mainStore = useMainStore()
 
 const dialogFormRules = reactive<FormRules>({
   name: [

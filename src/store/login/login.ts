@@ -4,21 +4,23 @@
  * @Author: wc
  * @Date: 2022-11-14 11:02:08
  * @LastEditors: wc
- * @LastEditTime: 2022-11-18 11:00:34
+ * @LastEditTime: 2022-11-24 14:35:06
  */
 
 import { defineStore } from 'pinia'
+
+import router from '@/router'
 import {
   accountLogin,
   getUserInfoById,
   getUserMenusByRoleId
 } from '@/service/login/login'
+import useMainStore from '@/store/main/main'
 
-import type { IAccount } from '@/types'
 import { localCache } from '@/utils/cache'
-import router from '@/router'
-import { TOKEN } from '@/global/constants'
 import { mapMenusToRoutes } from '@/utils/map-menus'
+import { TOKEN } from '@/global/constants'
+import type { IAccount } from '@/types'
 
 interface ILoginStore {
   token: string
@@ -57,11 +59,15 @@ const useLoginStore = defineStore('login', {
       this.userMenus = userMenusData.data
       localCache.setCache('userMenus', userMenusData.data)
 
-      // 5. 加载动态路由
+      // 5. 请求角色列表和部门列表
+      const mainStore = useMainStore()
+      mainStore.getAllTitleListAction() // 获取所有标签列表（角色列表、部门列表）
+
+      // 6. 加载动态路由
       const routes = mapMenusToRoutes(this.userMenus) // 获取根据菜单匹配后的路由数组
       routes.forEach((route) => router.addRoute('main', route)) // 动态添加路由
 
-      // 6. 跳转至 main 页面
+      // 7. 跳转至 main 页面
       router.push('/main')
     },
 
@@ -78,6 +84,10 @@ const useLoginStore = defineStore('login', {
         this.token = token
         this.userInfo = userInfo
         this.userMenus = userMenus
+
+        // 请求角色列表和部门列表
+        const mainStore = useMainStore()
+        mainStore.getAllTitleListAction() // 获取所有标签列表（角色列表、部门列表）
 
         // 加载动态路由
         const routes = mapMenusToRoutes(userMenus) // 获取根据菜单匹配后的路由数组
