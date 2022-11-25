@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-21 14:43:19
  * @LastEditors: wc
- * @LastEditTime: 2022-11-25 10:17:39
+ * @LastEditTime: 2022-11-25 13:40:40
 -->
 <template>
   <div class="main-table">
@@ -13,7 +13,7 @@
       <el-button type="primary" @click="addUserClick">新建用户</el-button>
     </div>
     <div class="table">
-      <el-table :data="userList" border style="width: 100%">
+      <el-table :data="pageList" border style="width: 100%">
         <el-table-column type="selection" width="60" align="center" />
         <el-table-column type="index" label="序号" width="80" align="center" />
         <el-table-column prop="name" label="名字" width="130" align="center" />
@@ -74,7 +74,7 @@
         v-model:current-page="currentPage"
         :disabled="false"
         layout="total, prev, pager, next, jumper"
-        :total="systemStore.userTotalCount"
+        :total="pageTotalCount"
         @current-change="handleCurrentChange"
       />
     </div>
@@ -98,20 +98,20 @@ const pageSize = ref(10) // 页面大小
 
 const emit = defineEmits(['addUserClick', 'editUserClick'])
 
-// 1. 发起 action， 获取 userList 数据
+// 1. 发起 action， 获取 pageList 数据
 const systemStore = useSystemStore()
-getUserList()
+getPageList()
 
-// 2. 获取 userList 数据
+// 2. 获取 pageList 数据
 // storeToRefs() 数据改变时，重新刷新页面
-const { userList } = storeToRefs(systemStore)
+const { pageList, pageTotalCount } = storeToRefs(systemStore)
 
 /**
  * @desc: 页码修改
  * @author: wc
  */
 function handleCurrentChange() {
-  getUserList()
+  getPageList()
 }
 
 /**
@@ -119,7 +119,7 @@ function handleCurrentChange() {
  * @author: wc
  */
 async function deleteClick(id: number) {
-  systemStore.deleteUserAction(id)
+  systemStore.deletePageDataAction('users', id)
 }
 
 /**
@@ -146,21 +146,22 @@ function addUserClick() {
  * @desc: 获取用户列表
  * @author: wc
  */
-function getUserList(formData?: any) {
+function getPageList(formData?: any) {
   // 保存表单搜索条件需要思考下
   // localCache.setCache('formData', formData) // 缓存表格数据
   // const _formData = localCache.getCache('formData') // 获取缓存表格数据
   const size = pageSize.value
   const offset = (currentPage.value - 1) * size
-  systemStore.getUserListAction({
+  const params = {
     size,
     offset,
     ...formData
-  })
+  }
+  systemStore.getPageListAction('users', params)
 }
 
 // 暴露属性
-defineExpose({ getUserList })
+defineExpose({ getPageList })
 </script>
 
 <style lang="less" scoped>

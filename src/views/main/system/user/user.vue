@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-17 17:07:57
  * @LastEditors: wc
- * @LastEditTime: 2022-11-25 10:14:36
+ * @LastEditTime: 2022-11-25 13:18:02
 -->
 <template>
   <div class="user">
@@ -34,7 +34,7 @@ const dialogRef = ref<InstanceType<typeof MainDialog>>()
  * @author: wc
  */
 function searchClick(formData: any) {
-  tableRef.value?.getUserList(formData)
+  tableRef.value?.getPageList(formData)
 }
 
 /**
@@ -42,7 +42,7 @@ function searchClick(formData: any) {
  * @author: wc
  */
 function resetClick() {
-  tableRef.value?.getUserList()
+  tableRef.value?.getPageList()
 }
 
 /**

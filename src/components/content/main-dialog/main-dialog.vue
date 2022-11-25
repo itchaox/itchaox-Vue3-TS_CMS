@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-23 11:23:35
  * @LastEditors: wc
- * @LastEditTime: 2022-11-25 10:39:55
+ * @LastEditTime: 2022-11-25 13:41:51
 -->
 
 <template>
@@ -162,10 +162,10 @@ function confirm() {
 
   if (isAdd.value) {
     // 新增用户
-    systemStore.addUserAction(formData)
+    systemStore.addPageDataAction('users', formData)
   } else {
     // 编辑用户
-    systemStore.editUserAction(userId.value, formData)
+    systemStore.editPageDataAction('users', userId.value, formData)
   }
 }
 
