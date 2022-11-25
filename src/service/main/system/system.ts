@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-21 15:14:45
  * @LastEditors: wc
- * @LastEditTime: 2022-11-24 15:51:03
+ * @LastEditTime: 2022-11-25 10:08:32
  */
 
 import hyRequest from '@/service'
@@ -34,6 +34,17 @@ export function deleteUser(id: number) {
 export function addUser(data: any) {
   return hyRequest.post({
     url: '/users',
+    data
+  })
+}
+
+/**
+ * @desc: 编辑用户
+ * @author: wc
+ */
+export function editUser(id: number, data: any) {
+  return hyRequest.patch({
+    url: `/users/${id}`,
     data
   })
 }

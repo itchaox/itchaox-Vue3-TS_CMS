@@ -4,14 +4,14 @@
  * @Author: wc
  * @Date: 2022-11-23 11:23:35
  * @LastEditors: wc
- * @LastEditTime: 2022-11-24 17:29:05
+ * @LastEditTime: 2022-11-25 10:39:55
 -->
 
 <template>
   <div class="main-dialog">
     <el-dialog
       v-model="isShowDialog"
-      title="新建角色"
+      :title="isAdd ? '新建用户' : '编辑用户'"
       width="30%"
       center
       @close="cancel"
@@ -88,9 +88,11 @@ import type { FormRules } from 'element-plus'
 import { storeToRefs } from 'pinia'
 import { reactive, ref } from 'vue'
 
+const systemStore = useSystemStore()
+const userId = ref(0) // 当前用户id
 const isShowDialog = ref(false) // 对话框显隐
 const isAdd = ref(true) //是不是新增操作
-let formData = reactive({
+let formData = reactive<any>({
   name: '',
   realname: '',
   password: '',
@@ -158,15 +160,12 @@ function confirm() {
   // 关闭对话框
   isShowDialog.value = false
 
-  // 新增用户
-  const systemStore = useSystemStore()
-  systemStore.addUserAction(formData)
-
-  // * 编辑接口操作
-
-  // 重置对话框表单
-  for (const key in formData) {
-    formData[key] = ''
+  if (isAdd.value) {
+    // 新增用户
+    systemStore.addUserAction(formData)
+  } else {
+    // 编辑用户
+    systemStore.editUserAction(userId.value, formData)
   }
 }
 
@@ -177,11 +176,6 @@ function confirm() {
 function cancel() {
   // 关闭对话框
   isShowDialog.value = false
-
-  // 重置对话框表单
-  for (const key in formData) {
-    formData[key] = ''
-  }
 }
 
 /**
@@ -192,11 +186,19 @@ function cancel() {
  */
 function setDialog(isNew = true, itemData?: any) {
   isShowDialog.value = true
-  isAdd.value = true
+  isAdd.value = isNew
   if (!isNew && itemData) {
-    isAdd.value = false
+    // 编辑
+    // 回显对话框表单数据
     for (const key in formData) {
       formData[key] = itemData[key]
+    }
+    userId.value = itemData.id
+  } else {
+    // 新建
+    // 重置对话框表单
+    for (const key in formData) {
+      formData[key] = ''
     }
   }
 }

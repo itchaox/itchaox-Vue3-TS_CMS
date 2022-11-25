@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-17 17:07:57
  * @LastEditors: wc
- * @LastEditTime: 2022-11-24 17:19:28
+ * @LastEditTime: 2022-11-25 10:14:36
 -->
 <template>
   <div class="user">
@@ -58,7 +58,6 @@ function addUserClick() {
  * @author: wc
  */
 function editUserClick(itemData: any) {
-  console.log('a')
   dialogRef.value?.setDialog(false, itemData)
 }
 </script>
