@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-21 14:43:19
  * @LastEditors: wc
- * @LastEditTime: 2022-11-28 17:13:23
+ * @LastEditTime: 2022-11-28 17:24:35
 -->
 <template>
   <div class="main-table">
@@ -24,7 +24,7 @@
           <template v-if="item.type === 'custom'">
             <el-table-column v-bind="item" align="center">
               <template #default="scope">
-                <slot :name="item.slotName" v-bind="scope" />
+                <slot :name="item.slotName" v-bind="scope" :prop="item.prop" />
               </template>
             </el-table-column>
           </template>

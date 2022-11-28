@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-17 17:07:57
  * @LastEditors: wc
- * @LastEditTime: 2022-11-28 17:08:52
+ * @LastEditTime: 2022-11-28 17:25:09
 -->
 <template>
   <div class="user">
@@ -23,9 +23,9 @@
       <template #enableSlot="scope">
         <el-tag
           size="large"
-          :type="scope.row.enable === 1 ? 'success' : 'danger'"
+          :type="scope.row[scope.prop] === 1 ? 'success' : 'danger'"
         >
-          {{ scope.row.enable === 1 ? '启用' : '未启用' }}
+          {{ scope.row[scope.prop] === 1 ? '启用' : '未启用' }}
         </el-tag>
       </template>
     </main-table>
