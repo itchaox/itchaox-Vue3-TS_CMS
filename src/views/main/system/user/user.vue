@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-17 17:07:57
  * @LastEditors: wc
- * @LastEditTime: 2022-11-28 15:18:02
+ * @LastEditTime: 2022-11-28 17:08:52
 -->
 <template>
   <div class="user">
@@ -19,7 +19,16 @@
       ref="tableRef"
       @add-click="addClick"
       @edit-click="editClick"
-    />
+    >
+      <template #enableSlot="scope">
+        <el-tag
+          size="large"
+          :type="scope.row.enable === 1 ? 'success' : 'danger'"
+        >
+          {{ scope.row.enable === 1 ? '启用' : '未启用' }}
+        </el-tag>
+      </template>
+    </main-table>
     <main-dialog pageName="users" ref="dialogRef" />
   </div>
 </template>

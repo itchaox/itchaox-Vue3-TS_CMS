@@ -1,76 +1,74 @@
 <!--
- * @Desc:
+ * @Desc: 公共表格组件
  * @Version: v1.00
  * @Author: wc
  * @Date: 2022-11-21 14:43:19
  * @LastEditors: wc
- * @LastEditTime: 2022-11-28 15:24:34
+ * @LastEditTime: 2022-11-28 17:13:23
 -->
 <template>
   <div class="main-table">
+    <!-- 头部 -->
     <div class="header">
       <h2 class="title">{{ tableConfig?.header?.title ?? '数据列表' }}</h2>
       <el-button type="primary" @click="addClick">{{
         tableConfig?.header?.btnTitle ?? '新建数据'
       }}</el-button>
     </div>
+
+    <!-- 表格 -->
     <div class="table">
       <el-table :data="pageList" border style="width: 100%">
-        <el-table-column type="selection" width="60" align="center" />
-        <el-table-column type="index" label="序号" width="80" align="center" />
-        <el-table-column prop="name" label="名字" width="130" align="center" />
-        <el-table-column
-          prop="realname"
-          label="真实姓名"
-          width="130"
-          align="center"
-        />
-        <el-table-column
-          prop="cellphone"
-          label="手机号码"
-          width="180"
-          align="center"
-        />
-        <el-table-column prop="enable" label="状态" width="100" align="center">
-          <template #default="scope">
-            <el-tag
-              size="large"
-              :type="scope.row.enable === 1 ? 'success' : 'danger'"
-            >
-              {{ scope.row.enable === 1 ? '启用' : '未启用' }}
-            </el-tag>
+        <template v-for="item in tableConfig.tableItems" :key="item.prop">
+          <!-- 自定义类型 -->
+          <template v-if="item.type === 'custom'">
+            <el-table-column v-bind="item" align="center">
+              <template #default="scope">
+                <slot :name="item.slotName" v-bind="scope" />
+              </template>
+            </el-table-column>
           </template>
-        </el-table-column>
-        <el-table-column prop="createAt" label="创建时间" align="center">
-          <template #default="scope">
-            {{ formatUTC(scope.row.createAt) }}
+
+          <!-- 时间类型 -->
+          <template v-else-if="item.type === 'timer'">
+            <el-table-column v-bind="item" align="center">
+              <template #default="scope">
+                {{ formatUTC(scope.row[item.prop]) }}
+              </template>
+            </el-table-column>
           </template>
-        </el-table-column>
-        <el-table-column prop="updateAt" label="更新时间" align="center">
-          <template #default="scope">
-            {{ formatUTC(scope.row.updateAt) }}
+
+          <!-- 操作类型  -->
+          <template v-else-if="item.type === 'operate'">
+            <el-table-column v-bind="item">
+              <template #default="scope">
+                <el-button
+                  text
+                  type="primary"
+                  icon="edit"
+                  @click="editClick(scope.row)"
+                  >编辑</el-button
+                >
+                <el-button
+                  text
+                  type="danger"
+                  icon="delete"
+                  @click="deleteClick(scope.row.id)"
+                  >删除</el-button
+                >
+              </template>
+            </el-table-column>
           </template>
-        </el-table-column>
-        <el-table-column prop="name" label="操作" width="180" align="center">
-          <template #default="scope">
-            <el-button
-              text
-              type="primary"
-              icon="edit"
-              @click="editClick(scope.row)"
-              >编辑</el-button
-            >
-            <el-button
-              text
-              type="danger"
-              icon="delete"
-              @click="deleteClick(scope.row.id)"
-              >删除</el-button
-            >
+
+          <!-- 普通类型 -->
+          <template v-else>
+            <el-table-column v-bind="item" align="center" />
           </template>
-        </el-table-column>
+        </template>
       </el-table>
     </div>
+
+    <!-- 分页器  -->
     <div class="pagination">
       <el-pagination
         v-model:current-page="currentPage"
@@ -105,6 +103,7 @@ interface IProps {
       title: string
       btnTitle: string
     }
+    tableItems: any[]
   }
 }
 const props = defineProps<IProps>()
