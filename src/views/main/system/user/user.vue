@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-17 17:07:57
  * @LastEditors: wc
- * @LastEditTime: 2022-11-28 13:56:39
+ * @LastEditTime: 2022-11-28 15:18:02
 -->
 <template>
   <div class="user">
@@ -15,11 +15,12 @@
     />
     <main-table
       pageName="users"
+      :table-config="tableConfig"
       ref="tableRef"
       @add-click="addClick"
       @edit-click="editClick"
     />
-    <main-dialog ref="dialogRef" />
+    <main-dialog pageName="users" ref="dialogRef" />
   </div>
 </template>
 
@@ -31,6 +32,7 @@ import MainTable from '@/components/content/main-table/main-table.vue'
 import MainDialog from '@/components/content/main-dialog/main-dialog.vue'
 
 import searchFormConfig from './config/searchFom.config'
+import tableConfig from './config/table.config'
 
 const tableRef = ref<InstanceType<typeof MainTable>>()
 const dialogRef = ref<InstanceType<typeof MainDialog>>()

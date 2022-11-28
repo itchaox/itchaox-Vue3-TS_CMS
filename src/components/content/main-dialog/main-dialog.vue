@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-23 11:23:35
  * @LastEditors: wc
- * @LastEditTime: 2022-11-28 09:29:26
+ * @LastEditTime: 2022-11-28 14:55:11
 -->
 
 <template>
@@ -88,6 +88,11 @@ import type { FormRules } from 'element-plus'
 import { storeToRefs } from 'pinia'
 import { reactive, ref } from 'vue'
 
+interface IProps {
+  pageName: string
+}
+
+const props = defineProps<IProps>()
 const systemStore = useSystemStore()
 const userId = ref(0) // 当前用户id
 const isShowDialog = ref(false) // 对话框显隐
@@ -162,10 +167,10 @@ function confirm() {
 
   if (isAdd.value) {
     // 新增用户
-    systemStore.addPageDataAction('users', formData)
+    systemStore.addPageDataAction(props.pageName, formData)
   } else {
     // 编辑用户
-    systemStore.editPageDataAction('users', userId.value, formData)
+    systemStore.editPageDataAction(props.pageName, userId.value, formData)
   }
 }
 

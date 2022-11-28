@@ -62,7 +62,7 @@ import { reactive, ref } from 'vue'
 // props 属性
 interface IProps {
   searchFormConfig: {
-    formItems: any
+    formItems: any[]
   }
 }
 

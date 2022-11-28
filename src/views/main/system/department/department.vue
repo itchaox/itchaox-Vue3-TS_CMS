@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-17 17:09:41
  * @LastEditors: wc
- * @LastEditTime: 2022-11-28 14:26:49
+ * @LastEditTime: 2022-11-28 14:56:28
 -->
 
 <template>
@@ -20,7 +20,7 @@
       @add-click="addClick"
       @edit-click="editClick"
     />
-    <main-dialog ref="dialogRef" />
+    <main-dialog pageName="department" ref="dialogRef" />
   </div>
 </template>
 

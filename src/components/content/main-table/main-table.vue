@@ -4,13 +4,15 @@
  * @Author: wc
  * @Date: 2022-11-21 14:43:19
  * @LastEditors: wc
- * @LastEditTime: 2022-11-28 14:27:35
+ * @LastEditTime: 2022-11-28 15:24:34
 -->
 <template>
   <div class="main-table">
     <div class="header">
-      <h2 class="title">用户列表</h2>
-      <el-button type="primary" @click="addClick">新建用户</el-button>
+      <h2 class="title">{{ tableConfig?.header?.title ?? '数据列表' }}</h2>
+      <el-button type="primary" @click="addClick">{{
+        tableConfig?.header?.btnTitle ?? '新建数据'
+      }}</el-button>
     </div>
     <div class="table">
       <el-table :data="pageList" border style="width: 100%">
@@ -98,6 +100,12 @@ const pageSize = ref(10) // 页面大小
 
 interface IProps {
   pageName: string
+  tableConfig: {
+    header?: {
+      title: string
+      btnTitle: string
+    }
+  }
 }
 const props = defineProps<IProps>()
 const emit = defineEmits(['addClick', 'editClick'])
