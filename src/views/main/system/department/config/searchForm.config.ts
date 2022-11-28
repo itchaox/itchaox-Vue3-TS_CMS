@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-28 11:14:19
  * @LastEditors: wc
- * @LastEditTime: 2022-11-28 11:48:18
+ * @LastEditTime: 2022-11-28 13:34:37
  */
 
 const searchFormConfig = {
@@ -17,7 +17,7 @@ const searchFormConfig = {
     },
     {
       type: 'input',
-      prop: ' leader',
+      prop: 'leader',
       label: '部门领导',
       placeholder: '请输入领导名字'
     },

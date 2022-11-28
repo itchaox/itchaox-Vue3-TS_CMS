@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-21 14:43:19
  * @LastEditors: wc
- * @LastEditTime: 2022-11-28 10:17:11
+ * @LastEditTime: 2022-11-28 14:27:35
 -->
 <template>
   <div class="main-table">
@@ -96,6 +96,10 @@ import { formatUTC } from '@/utils/format'
 const currentPage = ref(1) // 当前页码
 const pageSize = ref(10) // 页面大小
 
+interface IProps {
+  pageName: string
+}
+const props = defineProps<IProps>()
 const emit = defineEmits(['addClick', 'editClick'])
 
 // 1. 发起 action， 获取 pageList 数据
@@ -119,7 +123,7 @@ function handleCurrentChange() {
  * @author: wc
  */
 async function deleteClick(id: number) {
-  systemStore.deletePageDataAction('users', id)
+  systemStore.deletePageDataAction(props.pageName, id)
 }
 
 /**
@@ -157,7 +161,7 @@ function getPageList(formData?: any) {
     offset,
     ...formData
   }
-  systemStore.getPageListAction('users', params)
+  systemStore.getPageListAction(props.pageName, params)
 }
 
 // 暴露属性

@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-17 17:09:41
  * @LastEditors: wc
- * @LastEditTime: 2022-11-28 11:15:40
+ * @LastEditTime: 2022-11-28 14:26:49
 -->
 
 <template>
@@ -14,7 +14,12 @@
       @search-click="searchClick"
       @reset-click="resetClick"
     />
-    <main-table ref="tableRef" @add-click="addClick" @edit-click="editClick" />
+    <main-table
+      pageName="department"
+      ref="tableRef"
+      @add-click="addClick"
+      @edit-click="editClick"
+    />
     <main-dialog ref="dialogRef" />
   </div>
 </template>

@@ -26,14 +26,17 @@
               </template>
 
               <!-- 下拉菜单 -->
-              <template v-if="item.type === 'select'">
+              <template
+                v-if="item.type === 'select' && item.options.length > 0"
+              >
                 <el-select
                   v-model="form[item.prop]"
                   :placeholder="item.placeholder"
                   style="width: 100%"
                 >
-                  <el-option label="启用" :value="1" />
-                  <el-option label="禁用" :value="2" />
+                  <template v-for="option in item.options" :key="option.value">
+                    <el-option :label="option.label" :value="option.value" />
+                  </template>
                 </el-select>
               </template>
             </el-form-item>

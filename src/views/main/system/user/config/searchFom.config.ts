@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-28 11:14:19
  * @LastEditors: wc
- * @LastEditTime: 2022-11-28 13:14:05
+ * @LastEditTime: 2022-11-28 13:36:15
  */
 
 const searchFormConfig = {
@@ -17,21 +17,31 @@ const searchFormConfig = {
     },
     {
       type: 'input',
-      prop: ' realname',
+      prop: 'realname',
       label: '真实姓名',
       placeholder: '请输入真实姓名'
     },
     {
       type: 'input',
-      prop: ' cellphone',
+      prop: 'cellphone',
       label: '手机号码',
       placeholder: '请输入手机号码'
     },
     {
       type: 'select',
-      prop: ' enable',
+      prop: 'enable',
       label: '状态',
-      placeholder: '请选择状态'
+      placeholder: '请选择状态',
+      options: [
+        {
+          label: '启用',
+          value: 1
+        },
+        {
+          label: '禁用',
+          value: 2
+        }
+      ]
     },
     {
       type: 'date-picker',
