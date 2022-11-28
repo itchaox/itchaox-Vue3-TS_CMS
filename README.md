@@ -1,3 +1,12 @@
+<!--
+ * @Desc: 项目概述
+ * @Version: v1.00
+ * @Author: wc
+ * @Date: 2022-11-08 14:06:51
+ * @LastEditors: wc
+ * @LastEditTime: 2022-11-28 09:29:49
+-->
+
 # Vue3-TS_CMS
 
 - 本项目整理自 coderwhy 老师《 Vue3 + TypeScript 后台管理系统》
