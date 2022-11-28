@@ -3,8 +3,8 @@
   "extends": "@vue/tsconfig/tsconfig.web.json",
   "include": [
     "env.d.ts",
-    "auto-imports.d.ts",
-    "components.d.ts",
+    "auto-imports.d.ts", // 组件内查看 EL-Plus 无提示，可能是该位置未声明
+    "components.d.ts", // 组件内查看 EL-Plus 无提示，可能是该位置未声明
     "src/**/*",
     "src/**/*.vue"
   ],

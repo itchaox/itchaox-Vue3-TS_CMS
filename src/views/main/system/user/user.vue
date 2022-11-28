@@ -4,16 +4,16 @@
  * @Author: wc
  * @Date: 2022-11-17 17:07:57
  * @LastEditors: wc
- * @LastEditTime: 2022-11-25 13:18:02
+ * @LastEditTime: 2022-11-28 13:15:05
 -->
 <template>
   <div class="user">
-    <main-form @search-click="searchClick" @reset-click="resetClick" />
-    <main-table
-      ref="tableRef"
-      @add-user-click="addUserClick"
-      @edit-user-click="editUserClick"
+    <main-form
+      :search-form-config="searchFormConfig"
+      @search-click="searchClick"
+      @reset-click="resetClick"
     />
+    <main-table ref="tableRef" @add-click="addClick" @edit-click="editClick" />
     <main-dialog ref="dialogRef" />
   </div>
 </template>
@@ -24,6 +24,8 @@ import { ref } from 'vue'
 import MainForm from '@/components/content/main-form/main-form.vue'
 import MainTable from '@/components/content/main-table/main-table.vue'
 import MainDialog from '@/components/content/main-dialog/main-dialog.vue'
+
+import searchFormConfig from './config/searchFom.config'
 
 const tableRef = ref<InstanceType<typeof MainTable>>()
 const dialogRef = ref<InstanceType<typeof MainDialog>>()
@@ -46,23 +48,18 @@ function resetClick() {
 }
 
 /**
- * @desc: 新增用户
+ * @desc: 新增
  * @author: wc
  */
-function addUserClick() {
+function addClick() {
   dialogRef.value?.setDialog()
 }
 
 /**
- * @desc: 编辑用户
+ * @desc: 编辑
  * @author: wc
  */
-function editUserClick(itemData: any) {
+function editClick(itemData: any) {
   dialogRef.value?.setDialog(false, itemData)
 }
 </script>
-
-<style scoped>
-.user {
-}
-</style>

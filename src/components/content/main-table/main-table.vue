@@ -4,13 +4,13 @@
  * @Author: wc
  * @Date: 2022-11-21 14:43:19
  * @LastEditors: wc
- * @LastEditTime: 2022-11-28 09:30:28
+ * @LastEditTime: 2022-11-28 10:17:11
 -->
 <template>
   <div class="main-table">
     <div class="header">
       <h2 class="title">用户列表</h2>
-      <el-button type="primary" @click="addUserClick">新建用户</el-button>
+      <el-button type="primary" @click="addClick">新建用户</el-button>
     </div>
     <div class="table">
       <el-table :data="pageList" border style="width: 100%">
@@ -96,7 +96,7 @@ import { formatUTC } from '@/utils/format'
 const currentPage = ref(1) // 当前页码
 const pageSize = ref(10) // 页面大小
 
-const emit = defineEmits(['addUserClick', 'editUserClick'])
+const emit = defineEmits(['addClick', 'editClick'])
 
 // 1. 发起 action， 获取 pageList 数据
 const systemStore = useSystemStore()
@@ -115,7 +115,7 @@ function handleCurrentChange() {
 }
 
 /**
- * @desc: 删除用户
+ * @desc: 删除
  * @author: wc
  */
 async function deleteClick(id: number) {
@@ -123,23 +123,23 @@ async function deleteClick(id: number) {
 }
 
 /**
- * @desc: 编辑用户
+ * @desc: 编辑
  * @author: wc
  */
 function editClick(itemData: any) {
-  emit('editUserClick', itemData)
+  emit('editClick', itemData)
 }
 
 /**
- * @desc: 新增用户
+ * @desc: 新增
  * @author: wc
  */
-function addUserClick() {
-  emit('addUserClick', true)
+function addClick() {
+  emit('addClick', true)
 }
 
 /**
- * 网络请求
+ * !网络请求
  */
 
 /**

@@ -3,44 +3,42 @@
     <!-- 表单 -->
     <el-form :model="form" ref="formRef" label-width="100px">
       <el-row :gutter="20">
-        <el-col :span="8">
-          <el-form-item label="用户名" prop="name">
-            <el-input v-model="form.name" placeholder="请输入提示文本" />
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item label="真实姓名" prop="realname">
-            <el-input v-model="form.realname" placeholder="请输入提示文本" />
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item label="手机号码" prop="cellphone">
-            <el-input v-model="form.cellphone" placeholder="请输入提示文本" />
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item label="状态" prop="enable">
-            <el-select
-              v-model="form.enable"
-              placeholder="请选择状态"
-              style="width: 100%"
-            >
-              <el-option label="启用" :value="1" />
-              <el-option label="禁用" :value="2" />
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item label="创建时间" prop="createAt">
-            <el-date-picker
-              v-model="form.createAt"
-              type="daterange"
-              range-separator="-"
-              start-placeholder="开始时间"
-              end-placeholder="结束时间"
-            />
-          </el-form-item>
-        </el-col>
+        <template v-for="item in searchFormConfig.formItems" :key="item.prop">
+          <el-col :span="8">
+            <el-form-item :label="item.label" :prop="item.prop">
+              <!-- 输入框 -->
+              <template v-if="item.type === 'input'">
+                <el-input
+                  v-model="form[item.prop]"
+                  :placeholder="item.placeholder"
+                ></el-input>
+              </template>
+
+              <!-- 日期 -->
+              <template v-if="item.type === 'date-picker'">
+                <el-date-picker
+                  v-model="form[item.prop]"
+                  type="daterange"
+                  range-separator="-"
+                  start-placeholder="开始时间"
+                  end-placeholder="结束时间"
+                ></el-date-picker>
+              </template>
+
+              <!-- 下拉菜单 -->
+              <template v-if="item.type === 'select'">
+                <el-select
+                  v-model="form[item.prop]"
+                  :placeholder="item.placeholder"
+                  style="width: 100%"
+                >
+                  <el-option label="启用" :value="1" />
+                  <el-option label="禁用" :value="2" />
+                </el-select>
+              </template>
+            </el-form-item>
+          </el-col>
+        </template>
       </el-row>
     </el-form>
 
@@ -58,17 +56,24 @@
 import type { ElForm } from 'element-plus'
 import { reactive, ref } from 'vue'
 
+// props 属性
+interface IProps {
+  searchFormConfig: {
+    formItems: any
+  }
+}
+
+const props = defineProps<IProps>()
+
 // 自定义事件
 const emit = defineEmits(['searchClick', 'resetClick'])
 
 // 定义表单数据
-const form = reactive({
-  name: '', // 用户名
-  realname: '', // 真实姓名
-  cellphone: '', // 手机号码
-  enable: '', // 状态
-  createAt: '' // 创建时间
-})
+const initForm: any = {}
+for (const item of props.searchFormConfig.formItems) {
+  initForm[item.prop] = ''
+}
+const form = reactive(initForm)
 
 const formRef = ref<InstanceType<typeof ElForm>>() // 表单 ref
 
