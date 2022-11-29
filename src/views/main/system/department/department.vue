@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-17 17:09:41
  * @LastEditors: wc
- * @LastEditTime: 2022-11-28 14:56:28
+ * @LastEditTime: 2022-11-29 14:58:47
 -->
 
 <template>
@@ -33,26 +33,7 @@ import MainDialog from '@/components/content/main-dialog/main-dialog.vue'
 
 import searchFormConfig from './config/searchForm.config'
 
-const tableRef = ref<InstanceType<typeof MainTable>>()
 const dialogRef = ref<InstanceType<typeof MainDialog>>()
-
-/**
- * @desc: 搜索按钮
- * @param { any } formData 表单数据
- * @author: wc
- */
-function searchClick(formData: any) {
-  tableRef.value?.getPageList(formData)
-}
-
-/**
- * @desc: 重置按钮
- * @author: wc
- */
-function resetClick() {
-  tableRef.value?.getPageList()
-}
-
 /**
  * @desc: 新增
  * @author: wc
