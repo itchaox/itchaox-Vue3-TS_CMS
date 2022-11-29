@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-17 17:07:57
  * @LastEditors: wc
- * @LastEditTime: 2022-11-29 15:24:38
+ * @LastEditTime: 2022-11-29 15:51:48
 -->
 <template>
   <div class="user">
@@ -49,6 +49,6 @@ import usePageDialog from '@/hooks/usePageDialog'
 import useUserDialogConfig from '@/hooks/useUserDialogConfig'
 
 const dialogConfigWhole = useUserDialogConfig(dialogConfig) // 获取处理后的 dialogConfig
-const { tableRef, searchClick, resetClick } = usePageTable(MainTable) // table 组件 hooks
+const { tableRef, searchClick, resetClick } = usePageTable(MainTable) // table 组件 hook
 const { dialogRef, addClick, editClick } = usePageDialog(MainDialog) // dialog 组件 hook
 </script>
