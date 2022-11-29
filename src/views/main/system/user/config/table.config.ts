@@ -1,10 +1,10 @@
 /*
- * @Desc:
+ * @Desc: 表格配置项
  * @Version: v1.00
  * @Author: wc
  * @Date: 2022-11-28 15:09:05
  * @LastEditors: wc
- * @LastEditTime: 2022-11-29 09:53:29
+ * @LastEditTime: 2022-11-29 16:38:53
  */
 
 const tableConfig = {

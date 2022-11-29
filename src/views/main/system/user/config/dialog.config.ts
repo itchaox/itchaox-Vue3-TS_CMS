@@ -1,10 +1,10 @@
 /*
- * @Desc:
+ * @Desc: 对话框配置项
  * @Version: v1.00
  * @Author: wc
  * @Date: 2022-11-29 10:01:45
  * @LastEditors: wc
- * @LastEditTime: 2022-11-29 11:13:59
+ * @LastEditTime: 2022-11-29 16:38:24
  */
 
 const dialogConfig = {
