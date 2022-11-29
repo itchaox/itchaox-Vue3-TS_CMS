@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-23 11:23:35
  * @LastEditors: wc
- * @LastEditTime: 2022-11-29 14:02:39
+ * @LastEditTime: 2022-11-29 17:09:37
 -->
 
 <template>
@@ -82,10 +82,10 @@
 </template>
 
 <script setup lang="ts">
-import useMainStore from '@/store/main/main'
+import { reactive, ref } from 'vue'
+
 import useSystemStore from '@/store/main/system/system'
 import type { FormRules } from 'element-plus'
-import { reactive, ref } from 'vue'
 
 interface IProps {
   dialogConfig: {
@@ -194,7 +194,7 @@ function cancel() {
  * @param { any } itemData 本条数据
  * @author: wc
  */
-function setDialog(isNew = true, itemData?: any) {
+function setDialog(isNew: boolean = true, itemData?: any) {
   isShowDialog.value = true
   isAdd.value = isNew
   if (!isNew && itemData) {
