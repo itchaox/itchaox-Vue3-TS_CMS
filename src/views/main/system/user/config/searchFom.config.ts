@@ -1,10 +1,10 @@
 /*
- * @Desc: 查询表单配置项
+ * @Desc: 查询表单_配置项
  * @Version: v1.00
  * @Author: wc
  * @Date: 2022-11-28 11:14:19
- * @LastEditors: wc
- * @LastEditTime: 2022-11-28 13:36:15
+ * @LastEditors: wangchao
+ * @LastEditTime: 2022-11-29 23:22:29
  */
 
 const searchFormConfig = {
