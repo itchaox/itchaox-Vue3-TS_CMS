@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-29 10:01:45
  * @LastEditors: wc
- * @LastEditTime: 2022-11-29 10:40:12
+ * @LastEditTime: 2022-11-29 11:13:59
  */
 
 const dialogConfig = {
@@ -43,32 +43,14 @@ const dialogConfig = {
       prop: 'roleId',
       label: '选择角色',
       placeholder: '请选择角色',
-      options: [
-        {
-          label: '卡莎',
-          value: 60
-        },
-        {
-          label: '阿卡丽',
-          value: 18
-        }
-      ]
+      options: []
     },
     {
       type: 'select',
       prop: 'departmentId',
       label: '选择部门',
       placeholder: '请选择部门',
-      options: [
-        {
-          label: '艾欧尼亚',
-          value: 18
-        },
-        {
-          label: '黑色玫瑰',
-          value: 20
-        }
-      ]
+      options: []
     }
   ]
 }

@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-17 17:07:57
  * @LastEditors: wc
- * @LastEditTime: 2022-11-29 10:13:15
+ * @LastEditTime: 2022-11-29 14:04:13
 -->
 <template>
   <div class="user">
@@ -28,12 +28,12 @@
         </el-tag>
       </template>
     </main-table>
-    <main-dialog :dialogConfig="dialogConfig" ref="dialogRef" />
+    <main-dialog :dialogConfig="dialogConfigWhole" ref="dialogRef" />
   </div>
 </template>
 
 <script setup lang="ts" name="user">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 import MainForm from '@/components/content/main-form/main-form.vue'
 import MainTable from '@/components/content/main-table/main-table.vue'
@@ -42,6 +42,36 @@ import MainDialog from '@/components/content/main-dialog/main-dialog.vue'
 import searchFormConfig from './config/searchFom.config'
 import tableConfig from './config/table.config'
 import dialogConfig from './config/dialog.config'
+import useMainStore from '@/store/main/main'
+
+// 完善 dialogConfig 下拉菜单数据
+const dialogConfigWhole = computed(() => {
+  const { roleList, departmentList } = useMainStore()
+
+  // 重构属性名
+  const _roleList = roleList.map((item) => ({
+    label: item.name,
+    value: item.id
+  }))
+
+  const _departmentList = departmentList.map((item) => ({
+    label: item.name,
+    value: item.id
+  }))
+
+  dialogConfig.formItems.forEach((item: any) => {
+    // 角色下拉
+    if (item.prop === 'roleId') {
+      item.options.push(..._roleList)
+    }
+
+    // 部门下拉
+    if (item.prop === 'departmentId') {
+      item.options.push(..._departmentList)
+    }
+  })
+  return dialogConfig
+})
 
 const tableRef = ref<InstanceType<typeof MainTable>>()
 const dialogRef = ref<InstanceType<typeof MainDialog>>()

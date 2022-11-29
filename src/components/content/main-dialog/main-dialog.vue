@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-23 11:23:35
  * @LastEditors: wc
- * @LastEditTime: 2022-11-29 10:45:12
+ * @LastEditTime: 2022-11-29 14:02:39
 -->
 
 <template>
@@ -85,7 +85,6 @@
 import useMainStore from '@/store/main/main'
 import useSystemStore from '@/store/main/system/system'
 import type { FormRules } from 'element-plus'
-import { storeToRefs } from 'pinia'
 import { reactive, ref } from 'vue'
 
 interface IProps {
@@ -111,10 +110,6 @@ for (const item of props.dialogConfig.formItems) {
   initForm[item.prop] = ''
 }
 let formData = reactive(initForm)
-
-// 获取角色列表/部门列表
-const mainStore = useMainStore()
-const { roleList, departmentList } = storeToRefs(mainStore)
 
 // 表单校验规则
 const dialogFormRules = reactive<FormRules>({
