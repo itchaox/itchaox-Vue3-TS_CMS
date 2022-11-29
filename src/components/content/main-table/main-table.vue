@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-21 14:43:19
  * @LastEditors: wc
- * @LastEditTime: 2022-11-28 17:24:35
+ * @LastEditTime: 2022-11-29 09:53:47
 -->
 <template>
   <div class="main-table">
@@ -97,8 +97,8 @@ const currentPage = ref(1) // 当前页码
 const pageSize = ref(10) // 页面大小
 
 interface IProps {
-  pageName: string
   tableConfig: {
+    pageName: string
     header?: {
       title: string
       btnTitle: string
@@ -130,7 +130,7 @@ function handleCurrentChange() {
  * @author: wc
  */
 async function deleteClick(id: number) {
-  systemStore.deletePageDataAction(props.pageName, id)
+  systemStore.deletePageDataAction(props.tableConfig.pageName, id)
 }
 
 /**
@@ -168,7 +168,7 @@ function getPageList(formData?: any) {
     offset,
     ...formData
   }
-  systemStore.getPageListAction(props.pageName, params)
+  systemStore.getPageListAction(props.tableConfig.pageName, params)
 }
 
 // 暴露属性

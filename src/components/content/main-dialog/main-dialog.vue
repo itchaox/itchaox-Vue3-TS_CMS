@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-23 11:23:35
  * @LastEditors: wc
- * @LastEditTime: 2022-11-28 14:55:11
+ * @LastEditTime: 2022-11-29 10:45:12
 -->
 
 <template>
@@ -23,52 +23,52 @@
           label-width="100px"
           :rules="dialogFormRules"
         >
-          <el-form-item label="用户名" prop="name">
-            <el-input v-model="formData.name" placeholder="请输入用户名" />
-          </el-form-item>
-          <el-form-item label="真实姓名" prop="realname">
-            <el-input
-              v-model="formData.realname"
-              placeholder="请输入真实姓名"
-            />
-          </el-form-item>
-          <el-form-item v-if="isAdd" label="密码" prop="password">
-            <el-input
-              v-model="formData.password"
-              placeholder="请输入密码"
-              show-password
-            />
-          </el-form-item>
-          <el-form-item label="手机号码" prop="cellphone">
-            <el-input
-              v-model="formData.cellphone"
-              placeholder="请输入手机号码"
-            />
-          </el-form-item>
-          <el-form-item label="选择角色" prop="roleId">
-            <el-select
-              v-model="formData.roleId"
-              placeholder="请选择角色"
-              size="large"
-              style="width: 100%"
-            >
-              <template v-for="item in roleList" :key="item.id">
-                <el-option :label="item.name" :value="item.id" />
+          <template v-for="item in dialogConfig.formItems" :key="item.prop">
+            <el-form-item :label="item.label" :prop="item.prop">
+              <!-- 普通输入框 -->
+              <template v-if="item.type === 'input'">
+                <el-input
+                  v-model="formData[item.prop]"
+                  :placeholder="item.placeholder"
+                ></el-input>
               </template>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="选择部门" prop="departmentId">
-            <el-select
-              v-model="formData.departmentId"
-              placeholder="请选择部门"
-              size="large"
-              style="width: 100%"
-            >
-              <template v-for="item in departmentList" :key="item.id">
-                <el-option :label="item.name" :value="item.id" />
+
+              <!-- 密码输入框 -->
+              <template v-if="item.type === 'input-password' && isAdd">
+                <el-input
+                  v-model="formData[item.prop]"
+                  :placeholder="item.placeholder"
+                  show-password
+                ></el-input>
               </template>
-            </el-select>
-          </el-form-item>
+
+              <!-- 日期 -->
+              <template v-else-if="item.type === 'date-picker'">
+                <el-date-picker
+                  v-model="formData[item.prop]"
+                  type="daterange"
+                  range-separator="-"
+                  start-placeholder="开始时间"
+                  end-placeholder="结束时间"
+                ></el-date-picker>
+              </template>
+
+              <!-- 下拉菜单 -->
+              <template
+                v-else-if="item.type === 'select' && item?.options?.length > 0"
+              >
+                <el-select
+                  v-model="formData[item.prop]"
+                  :placeholder="item.placeholder"
+                  style="width: 100%"
+                >
+                  <template v-for="option in item.options" :key="option.value">
+                    <el-option :label="option.label" :value="option.value" />
+                  </template>
+                </el-select>
+              </template>
+            </el-form-item>
+          </template>
         </el-form>
       </div>
       <template #footer>
@@ -89,22 +89,28 @@ import { storeToRefs } from 'pinia'
 import { reactive, ref } from 'vue'
 
 interface IProps {
-  pageName: string
+  dialogConfig: {
+    pageName: string
+    header: {
+      addTitle: string
+      editTitle: string
+    }
+    formItems: any[]
+  }
 }
-
 const props = defineProps<IProps>()
+
 const systemStore = useSystemStore()
 const userId = ref(0) // 当前用户id
 const isShowDialog = ref(false) // 对话框显隐
 const isAdd = ref(true) //是不是新增操作
-let formData = reactive<any>({
-  name: '',
-  realname: '',
-  password: '',
-  cellphone: '',
-  roleId: '',
-  departmentId: ''
-})
+
+// 定义表单数据
+const initForm: any = {}
+for (const item of props.dialogConfig.formItems) {
+  initForm[item.prop] = ''
+}
+let formData = reactive(initForm)
 
 // 获取角色列表/部门列表
 const mainStore = useMainStore()
@@ -167,10 +173,14 @@ function confirm() {
 
   if (isAdd.value) {
     // 新增用户
-    systemStore.addPageDataAction(props.pageName, formData)
+    systemStore.addPageDataAction(props.dialogConfig.pageName, formData)
   } else {
     // 编辑用户
-    systemStore.editPageDataAction(props.pageName, userId.value, formData)
+    systemStore.editPageDataAction(
+      props.dialogConfig.pageName,
+      userId.value,
+      formData
+    )
   }
 }
 

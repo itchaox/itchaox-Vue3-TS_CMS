@@ -4,10 +4,11 @@
  * @Author: wc
  * @Date: 2022-11-28 15:09:05
  * @LastEditors: wc
- * @LastEditTime: 2022-11-28 17:07:46
+ * @LastEditTime: 2022-11-29 09:53:29
  */
 
 const tableConfig = {
+  pageName: 'users',
   header: {
     title: '用户列表',
     btnTitle: '新建用户'

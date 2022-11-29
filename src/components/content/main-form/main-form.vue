@@ -15,7 +15,7 @@
               </template>
 
               <!-- 日期 -->
-              <template v-if="item.type === 'date-picker'">
+              <template v-else-if="item.type === 'date-picker'">
                 <el-date-picker
                   v-model="form[item.prop]"
                   type="daterange"
@@ -27,7 +27,7 @@
 
               <!-- 下拉菜单 -->
               <template
-                v-if="item.type === 'select' && item.options.length > 0"
+                v-else-if="item.type === 'select' && item?.options?.length > 0"
               >
                 <el-select
                   v-model="form[item.prop]"
