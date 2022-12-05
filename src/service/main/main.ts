@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-24 14:12:13
  * @LastEditors: wc
- * @LastEditTime: 2022-11-24 14:23:22
+ * @LastEditTime: 2022-12-05 09:33:30
  */
 
 import hyRequest from '@/service'
@@ -26,5 +26,15 @@ export function getRoleList() {
 export function getDepartmentList() {
   return hyRequest.post({
     url: '/department/list'
+  })
+}
+
+/**
+ * @desc: 获取菜单列表
+ * @author: wc
+ */
+export function getMenuList() {
+  return hyRequest.post({
+    url: '/menu/list'
   })
 }
