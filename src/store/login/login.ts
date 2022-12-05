@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-14 11:02:08
  * @LastEditors: wc
- * @LastEditTime: 2022-11-24 14:35:06
+ * @LastEditTime: 2022-12-05 16:08:32
  */
 
 import { defineStore } from 'pinia'
@@ -18,7 +18,10 @@ import {
 import useMainStore from '@/store/main/main'
 
 import { localCache } from '@/utils/cache'
-import { mapMenusToRoutes } from '@/utils/map-menus'
+import {
+  mapMenuListToPermissionList,
+  mapMenusToRoutes
+} from '@/utils/map-menus'
 import { TOKEN } from '@/global/constants'
 import type { IAccount } from '@/types'
 
@@ -26,13 +29,15 @@ interface ILoginStore {
   token: string
   userInfo: any
   userMenus: any
+  permissionList: any
 }
 
 const useLoginStore = defineStore('login', {
   state: (): ILoginStore => ({
     token: '', // 如果有缓存 token, 则直接读取 token
     userInfo: {}, // 用户信息
-    userMenus: [] // 用户菜单
+    userMenus: [], // 用户菜单
+    permissionList: [] // 按钮权限列表
   }),
   actions: {
     /**
@@ -63,6 +68,12 @@ const useLoginStore = defineStore('login', {
       const mainStore = useMainStore()
       mainStore.getAllTitleListAction() // 获取所有标签列表（角色列表、部门列表）
 
+      //! 获取用户针对所有按钮的权限
+      const permissionList: string[] = mapMenuListToPermissionList(
+        this.userMenus
+      ) // 获取用户按钮权限
+      this.permissionList = permissionList
+
       // 6. 加载动态路由
       const routes = mapMenusToRoutes(this.userMenus) // 获取根据菜单匹配后的路由数组
       routes.forEach((route) => router.addRoute('main', route)) // 动态添加路由
@@ -88,6 +99,12 @@ const useLoginStore = defineStore('login', {
         // 请求角色列表和部门列表
         const mainStore = useMainStore()
         mainStore.getAllTitleListAction() // 获取所有标签列表（角色列表、部门列表）
+
+        //! 获取用户针对所有按钮的权限
+        const permissionList: string[] = mapMenuListToPermissionList(
+          this.userMenus
+        ) // 获取用户按钮权限
+        this.permissionList = permissionList
 
         // 加载动态路由
         const routes = mapMenusToRoutes(userMenus) // 获取根据菜单匹配后的路由数组

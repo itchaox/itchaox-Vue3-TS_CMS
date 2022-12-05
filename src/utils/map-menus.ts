@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-18 09:42:01
  * @LastEditors: wc
- * @LastEditTime: 2022-11-18 15:14:48
+ * @LastEditTime: 2022-12-05 15:58:47
  */
 
 import type { RouteRecordRaw } from 'vue-router'
@@ -105,4 +105,28 @@ export function mapPathToBreadcrumb(path: string): any {
     }
   }
   return BreadcrumbList
+}
+
+/**
+ * @desc: 根据菜单映射出用户按钮权限
+ * @param {any} menuList 菜单路由
+ * @returns { string[] } 按钮权限
+ * @author: wc
+ */
+export function mapMenuListToPermissionList(menuList: any[]): string[] {
+  const permissionList: string[] = []
+
+  function recurseGetPermissionList(menus: any[]) {
+    menus.forEach((item) => {
+      if (item.type === 3) {
+        // item.type 为3时是权限数据
+        permissionList.push(item.permission)
+      } else {
+        // item.type 不为3 且有子列表
+        recurseGetPermissionList(item.children ?? [])
+      }
+    })
+  }
+  recurseGetPermissionList(menuList)
+  return permissionList
 }
