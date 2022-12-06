@@ -4,51 +4,10 @@
  * @Author: wc
  * @Date: 2022-11-21 15:14:45
  * @LastEditors: wc
- * @LastEditTime: 2022-11-25 13:37:13
+ * @LastEditTime: 2022-12-06 11:47:36
  */
 
 import hyRequest from '@/service'
-
-// !用户管理
-// 获取用户列表
-export function getUserList(data: any) {
-  return hyRequest.post({
-    url: '/users/list',
-    data
-  })
-}
-
-/**
- * @desc: 删除用户
- * @author: wc
- */
-export function deleteUser(id: number) {
-  return hyRequest.delete({
-    url: `/users/${id}`
-  })
-}
-
-/**
- * @desc: 新增用户
- * @author: wc
- */
-export function addUser(data: any) {
-  return hyRequest.post({
-    url: '/users',
-    data
-  })
-}
-
-/**
- * @desc: 编辑用户
- * @author: wc
- */
-export function editUser(id: number, data: any) {
-  return hyRequest.patch({
-    url: `/users/${id}`,
-    data
-  })
-}
 
 // ! 针对页面数据的网络请求：增删改改（封装、抽象）
 
