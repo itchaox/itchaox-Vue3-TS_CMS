@@ -4,14 +4,14 @@
  * @Author: wc
  * @Date: 2022-11-21 14:43:19
  * @LastEditors: wc
- * @LastEditTime: 2022-11-29 09:53:47
+ * @LastEditTime: 2022-12-06 11:05:00
 -->
 <template>
   <div class="main-table">
     <!-- 头部 -->
     <div class="header">
       <h2 class="title">{{ tableConfig?.header?.title ?? '数据列表' }}</h2>
-      <el-button type="primary" @click="addClick">{{
+      <el-button v-if="isAdd" type="primary" @click="addClick">{{
         tableConfig?.header?.btnTitle ?? '新建数据'
       }}</el-button>
     </div>
@@ -43,6 +43,7 @@
             <el-table-column v-bind="item">
               <template #default="scope">
                 <el-button
+                  v-if="isUpdate"
                   text
                   type="primary"
                   icon="edit"
@@ -50,6 +51,7 @@
                   >编辑</el-button
                 >
                 <el-button
+                  v-if="isDelete"
                   text
                   type="danger"
                   icon="delete"
@@ -91,6 +93,7 @@ import useSystemStore from '@/store/main/system/system'
 
 // 公共方法
 import { formatUTC } from '@/utils/format'
+import usePermissions from '@/hooks/usePermissions'
 // import { localCache } from '@/utils/cache'
 
 const currentPage = ref(1) // 当前页码
@@ -108,6 +111,12 @@ interface IProps {
 }
 const props = defineProps<IProps>()
 const emit = defineEmits(['addClick', 'editClick'])
+
+// 判断按钮权限
+const isAdd = usePermissions(`${props.tableConfig.pageName}:create`)
+const isDelete = usePermissions(`${props.tableConfig.pageName}:delete`)
+const isUpdate = usePermissions(`${props.tableConfig.pageName}:update`)
+const isQuery = usePermissions(`${props.tableConfig.pageName}:query`)
 
 // 1. 发起 action， 获取 pageList 数据
 const systemStore = useSystemStore()
@@ -158,6 +167,7 @@ function addClick() {
  * @author: wc
  */
 function getPageList(formData?: any) {
+  if (!isQuery) return // 没有查询权限，直接抛出
   // 保存表单搜索条件需要思考下
   // localCache.setCache('formData', formData) // 缓存表格数据
   // const _formData = localCache.getCache('formData') // 获取缓存表格数据

@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-23 11:23:35
  * @LastEditors: wc
- * @LastEditTime: 2022-11-29 17:09:37
+ * @LastEditTime: 2022-12-06 11:16:13
 -->
 
 <template>
@@ -24,7 +24,11 @@
           :rules="dialogFormRules"
         >
           <template v-for="item in dialogConfig.formItems" :key="item.prop">
-            <el-form-item :label="item.label" :prop="item.prop">
+            <el-form-item
+              v-if="item.type !== 'input-password' || isAdd"
+              :label="item.label"
+              :prop="item.prop"
+            >
               <!-- 普通输入框 -->
               <template v-if="item.type === 'input'">
                 <el-input
