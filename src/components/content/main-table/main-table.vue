@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-21 14:43:19
  * @LastEditors: wc
- * @LastEditTime: 2022-12-06 11:05:00
+ * @LastEditTime: 2022-12-06 13:56:41
 -->
 <template>
   <div class="main-table">
@@ -180,6 +180,20 @@ function getPageList(formData?: any) {
   }
   systemStore.getPageListAction(props.tableConfig.pageName, params)
 }
+
+// 监听 action，在进行数据操作后，让页码回到 1
+systemStore.$onAction(({ name, after }) => {
+  // action 调用成功才执行后续代码
+  after(() => {
+    if (
+      name === 'addPageDataAction' ||
+      name === 'editPageDataAction' ||
+      name === 'deletePageDataAction'
+    ) {
+      currentPage.value = 1
+    }
+  })
+})
 
 // 暴露属性
 defineExpose({ getPageList })
