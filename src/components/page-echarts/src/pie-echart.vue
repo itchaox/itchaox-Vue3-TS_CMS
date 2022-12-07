@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-12-07 14:29:11
  * @LastEditors: wc
- * @LastEditTime: 2022-12-07 15:46:47
+ * @LastEditTime: 2022-12-07 16:42:32
 -->
 
 <template>
@@ -30,16 +30,11 @@ const props = defineProps<IProps>()
 
 // computed 响应式收集数据，当依赖数据发生改变时，则需要更新数据
 const options = computed<EChartsOption>(() => ({
-  title: {
-    text: 'Referer of a Website',
-    subtext: 'Fake Data',
-    left: 'center'
-  },
   tooltip: {
     trigger: 'item'
   },
   legend: {
-    orient: 'vertical',
+    orient: 'horizontal',
     left: 'left'
   },
   series: [
