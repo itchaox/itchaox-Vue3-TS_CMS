@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-17 17:06:44
  * @LastEditors: wc
- * @LastEditTime: 2022-12-07 13:21:37
+ * @LastEditTime: 2022-12-07 14:46:19
 -->
 <template>
   <div class="dashboard">
@@ -20,7 +20,9 @@
     <!-- 2. content -->
     <el-row :gutter="12">
       <el-col :span="7">
-        <chart-card header="分类商品数量（饼图）">2</chart-card>
+        <chart-card header="分类商品数量（饼图）">
+          <pie-echart />
+        </chart-card>
       </el-col>
 
       <el-col :span="10">
@@ -47,6 +49,7 @@
 <script setup lang="ts" name="dashboard">
 import CountCard from './cpns/count-card.vue'
 import ChartCard from './cpns/chart-card.vue'
+import { PieEchart } from '@/components/page-echarts'
 
 import useAnalysisStore from '@/store/main/analysis/analysis'
 import { storeToRefs } from 'pinia'

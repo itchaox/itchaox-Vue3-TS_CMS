@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-12-07 10:41:47
  * @LastEditors: wc
- * @LastEditTime: 2022-12-07 13:16:28
+ * @LastEditTime: 2022-12-07 14:32:04
 -->
 
 <template>
@@ -16,8 +16,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
-
 interface IProps {
   header: string
 }
