@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-12-07 14:29:11
  * @LastEditors: wc
- * @LastEditTime: 2022-12-07 14:45:19
+ * @LastEditTime: 2022-12-07 15:46:47
 -->
 
 <template>
@@ -16,22 +16,48 @@
 <script setup lang="ts">
 import BaseEchart from './base-echart.vue'
 import type { EChartsOption } from 'echarts'
+import { computed } from 'vue'
 
-const options: EChartsOption = {
-  xAxis: {
-    type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+interface IPieValueType {
+  value: number
+  name: string
+}
+
+interface IProps {
+  pieData: IPieValueType[]
+}
+const props = defineProps<IProps>()
+
+// computed 响应式收集数据，当依赖数据发生改变时，则需要更新数据
+const options = computed<EChartsOption>(() => ({
+  title: {
+    text: 'Referer of a Website',
+    subtext: 'Fake Data',
+    left: 'center'
   },
-  yAxis: {
-    type: 'value'
+  tooltip: {
+    trigger: 'item'
+  },
+  legend: {
+    orient: 'vertical',
+    left: 'left'
   },
   series: [
     {
-      data: [150, 230, 224, 218, 135, 147, 260],
-      type: 'line'
+      name: 'Access From',
+      type: 'pie',
+      radius: '50%',
+      data: props.pieData,
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
     }
   ]
-}
+}))
 </script>
 
 <style lang="less" scoped>

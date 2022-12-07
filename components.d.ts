@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BaseEchart: typeof import('./src/components/page-echarts/src/base-echart.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
@@ -40,6 +41,12 @@ declare module '@vue/runtime-core' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTag: typeof import('element-plus/es')['ElTag']
+    MainDialog: typeof import('./src/components/content/main-dialog/main-dialog.vue')['default']
+    MainForm: typeof import('./src/components/content/main-form/main-form.vue')['default']
+    MainHeader: typeof import('./src/components/content/main-header/main-header.vue')['default']
+    MainMenu: typeof import('./src/components/content/main-menu/main-menu.vue')['default']
+    MainTable: typeof import('./src/components/content/main-table/main-table.vue')['default']
+    PieEchart: typeof import('./src/components/page-echarts/src/pie-echart.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

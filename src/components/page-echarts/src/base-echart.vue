@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-12-07 13:53:25
  * @LastEditors: wc
- * @LastEditTime: 2022-12-07 14:42:54
+ * @LastEditTime: 2022-12-07 15:50:00
 -->
 
 <template>
@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watchEffect } from 'vue'
 
 import * as echarts from 'echarts'
 import type { EChartsOption } from 'echarts'
@@ -32,7 +32,8 @@ onMounted(() => {
     renderer: 'canvas'
   })
 
-  echartInstance.setOption(props.options)
+  // watchEffect 监听 option 变化，重新执行该代码
+  watchEffect(() => echartInstance.setOption(props.options))
 })
 </script>
 

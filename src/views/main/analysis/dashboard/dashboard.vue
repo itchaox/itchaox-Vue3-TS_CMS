@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-17 17:06:44
  * @LastEditors: wc
- * @LastEditTime: 2022-12-07 14:46:19
+ * @LastEditTime: 2022-12-07 15:42:55
 -->
 <template>
   <div class="dashboard">
@@ -21,7 +21,7 @@
     <el-row :gutter="12">
       <el-col :span="7">
         <chart-card header="分类商品数量（饼图）">
-          <pie-echart />
+          <pie-echart :pie-data="pieData" />
         </chart-card>
       </el-col>
 
@@ -60,6 +60,14 @@ analysisStore.getWholeAnalysisData()
 
 // 1. 获取统计数据列表
 const { amountList } = storeToRefs(analysisStore) // storeToRefs 映射出响应式数据
+
+const pieData = [
+  { value: 1048, name: 'Search Engine' },
+  { value: 735, name: 'Direct' },
+  { value: 580, name: 'Email' },
+  { value: 484, name: 'Union Ads' },
+  { value: 300, name: 'Video Ads' }
+]
 </script>
 
 <style scoped>
