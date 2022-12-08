@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-12-06 15:06:48
  * @LastEditors: wc
- * @LastEditTime: 2022-12-07 16:26:40
+ * @LastEditTime: 2022-12-08 11:24:28
  */
 
 import {
@@ -42,7 +42,7 @@ const useAnalysisStore = defineStore('analysis', {
      * @author: wc
      */
     getWholeAnalysisData() {
-      // ! 此处不需要异步执行请求，因此不适用 async await
+      // ! 此处不需要异步执行请求，因此不使用 async await
 
       // 1. 获取统计数据列表
       getAmountList().then((res) => {

@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-12-07 16:57:25
  * @LastEditors: wc
- * @LastEditTime: 2022-12-08 09:55:58
+ * @LastEditTime: 2022-12-08 11:19:44
 -->
 
 <template>
@@ -32,8 +32,8 @@ const props = defineProps<IProps>()
 const options = computed<EChartsOption>(() => {
   // 重构数据
   const _lineData = [...props.lineData]
-  const _xAxisData = _lineData.map((item) => (item = item.name as any))
-  const _seriesData = _lineData.map((item) => (item = item.value as any))
+  const _xAxisData = _lineData.map((item: any) => (item = item.name))
+  const _seriesData = _lineData.map((item: any) => (item = item.value))
 
   return {
     xAxis: {

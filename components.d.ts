@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BarEchart: typeof import('./src/components/page-echarts/src/bar-echart.vue')['default']
     BaseEchart: typeof import('./src/components/page-echarts/src/base-echart.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
