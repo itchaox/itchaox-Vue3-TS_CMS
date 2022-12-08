@@ -31,9 +31,8 @@ const props = defineProps<IProps>()
 
 const options = computed<EChartsOption>(() => {
   // 重构数据
-  const _lineData = [...props.lineData]
-  const _xAxisData = _lineData.map((item: any) => (item = item.name))
-  const _seriesData = _lineData.map((item: any) => (item = item.value))
+  const _xAxisData = props.lineData.map((item) => item.name)
+  const _seriesData = props.lineData.map((item) => item.value)
 
   return {
     xAxis: {

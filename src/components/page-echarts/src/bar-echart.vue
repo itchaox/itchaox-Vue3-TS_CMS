@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-12-08 10:58:51
  * @LastEditors: wc
- * @LastEditTime: 2022-12-08 11:19:30
+ * @LastEditTime: 2022-12-08 13:52:57
 -->
 
 <template>
@@ -31,9 +31,8 @@ interface IProps {
 const props = defineProps<IProps>()
 
 const options = computed<EChartsOption>(() => {
-  const _barData = [...props.barData]
-  const _xAxisData = _barData.map((item: any) => (item = item.name))
-  const _seriesData = _barData.map((item: any) => (item = item.value))
+  const _xAxisData = props.barData.map((item) => item.name)
+  const _seriesData = props.barData.map((item) => item.value)
 
   return {
     xAxis: {
