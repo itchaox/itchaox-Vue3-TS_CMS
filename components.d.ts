@@ -50,6 +50,7 @@ declare module '@vue/runtime-core' {
     MainTable: typeof import('./src/components/content/main-table/main-table.vue')['default']
     MapEchart: typeof import('./src/components/page-echarts/src/map-echart.vue')['default']
     PieEchart: typeof import('./src/components/page-echarts/src/pie-echart.vue')['default']
+    RoseEchart: typeof import('./src/components/page-echarts/src/rose-echart.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

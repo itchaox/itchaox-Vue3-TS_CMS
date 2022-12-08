@@ -32,8 +32,8 @@
       </el-col>
 
       <el-col :span="7">
-        <chart-card header="分类商品数量（折线图）">
-          <line-echart :line-data="categoryCountData" />
+        <chart-card header="分类商品数量（玫瑰图）">
+          <rose-echart :rose-data="categoryCountData" />
         </chart-card>
       </el-col>
     </el-row>
@@ -62,7 +62,8 @@ import {
   PieEchart,
   LineEchart,
   BarEchart,
-  MapEchart
+  MapEchart,
+  RoseEchart
 } from '@/components/page-echarts'
 
 import useAnalysisStore from '@/store/main/analysis/analysis'
