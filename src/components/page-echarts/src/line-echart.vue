@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-12-07 16:57:25
  * @LastEditors: wc
- * @LastEditTime: 2022-12-07 17:22:24
+ * @LastEditTime: 2022-12-08 09:55:58
 -->
 
 <template>
@@ -18,32 +18,39 @@ import BaseEchart from './base-echart.vue'
 import type { EChartsOption } from 'echarts'
 import { computed } from 'vue'
 
-interface ILineValueType {
-  xAxisData: string[]
-  seriesData: number[]
+interface IPieValueType {
+  name: string
+  value: number
 }
 
 interface IProps {
-  lineData: ILineValueType
+  lineData: IPieValueType[]
 }
 
 const props = defineProps<IProps>()
 
-const options = computed<EChartsOption>(() => ({
-  xAxis: {
-    type: 'category',
-    data: props.lineData.xAxisData
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: [
-    {
-      data: props.lineData.seriesData,
-      type: 'line'
-    }
-  ]
-}))
+const options = computed<EChartsOption>(() => {
+  // 重构数据
+  const _lineData = [...props.lineData]
+  const _xAxisData = _lineData.map((item) => (item = item.name as any))
+  const _seriesData = _lineData.map((item) => (item = item.value as any))
+
+  return {
+    xAxis: {
+      type: 'category',
+      data: _xAxisData
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [
+      {
+        data: _seriesData,
+        type: 'line'
+      }
+    ]
+  }
+})
 </script>
 
 <style lang="less" scoped>

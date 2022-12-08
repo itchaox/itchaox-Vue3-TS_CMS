@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-17 17:06:44
  * @LastEditors: wc
- * @LastEditTime: 2022-12-07 17:14:39
+ * @LastEditTime: 2022-12-08 10:53:08
 -->
 <template>
   <div class="dashboard">
@@ -30,7 +30,9 @@
       </el-col>
 
       <el-col :span="7">
-        <chart-echart header="分类商品数量（玫瑰图）">5</chart-echart>
+        <chart-card header="分类商品数量（折线图）">
+          <line-echart :line-data="categoryCountData" />
+        </chart-card>
       </el-col>
     </el-row>
 
@@ -38,7 +40,7 @@
     <el-row :gutter="10">
       <el-col :span="12">
         <chart-card header="分类商品销量">
-          <line-echart />
+          <line-echart :line-data="categorySaleData" />
         </chart-card>
       </el-col>
       <el-col :span="12">
@@ -55,7 +57,7 @@ import { PieEchart, LineEchart } from '@/components/page-echarts'
 
 import useAnalysisStore from '@/store/main/analysis/analysis'
 import { storeToRefs } from 'pinia'
-import { computed } from 'vue'
+import useMapDataToEchart from '@/hooks/useMapDataToEchart'
 
 // 请求统计数据接口
 const analysisStore = useAnalysisStore()
@@ -71,13 +73,15 @@ const {
   addressSale
 } = storeToRefs(analysisStore) // storeToRefs 映射出响应式数据
 
-const categoryCountData = computed(() => {
-  // 重构数据
-  return categoryCount.value.map((item) => ({
-    name: item.name,
-    value: item.goodsCount
-  }))
-})
+// 分类商品数量
+const categoryCountData = useMapDataToEchart(
+  categoryCount,
+  'name',
+  'goodsCount'
+)
+
+// 分类商品销量
+const categorySaleData = useMapDataToEchart(categorySale, 'name', 'goodsCount')
 </script>
 
 <style scoped>
