@@ -4,11 +4,12 @@
  * @Author: wc
  * @Date: 2022-12-07 13:46:10
  * @LastEditors: wc
- * @LastEditTime: 2022-12-08 11:06:13
+ * @LastEditTime: 2022-12-08 14:33:34
  */
 
 import PieEchart from './src/pie-echart.vue'
 import LineEchart from './src/line-echart.vue'
 import BarEchart from './src/bar-echart.vue'
+import MapEchart from './src/map-echart.vue'
 
-export { PieEchart, LineEchart, BarEchart }
+export { PieEchart, LineEchart, BarEchart, MapEchart }

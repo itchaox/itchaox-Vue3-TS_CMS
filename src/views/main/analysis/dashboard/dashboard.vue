@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-11-17 17:06:44
  * @LastEditors: wc
- * @LastEditTime: 2022-12-08 11:24:04
+ * @LastEditTime: 2022-12-08 14:39:14
 -->
 <template>
   <div class="dashboard">
@@ -26,7 +26,9 @@
       </el-col>
 
       <el-col :span="10">
-        <chart-card header="不同城市商品销量">3</chart-card>
+        <chart-card header="不同城市商品销量（地图）">
+          <map-echart :map-data="addressSaleData" />
+        </chart-card>
       </el-col>
 
       <el-col :span="7">
@@ -56,7 +58,12 @@
 <script setup lang="ts" name="dashboard">
 import CountCard from './cpns/count-card.vue'
 import ChartCard from './cpns/chart-card.vue'
-import { PieEchart, LineEchart, BarEchart } from '@/components/page-echarts'
+import {
+  PieEchart,
+  LineEchart,
+  BarEchart,
+  MapEchart
+} from '@/components/page-echarts'
 
 import useAnalysisStore from '@/store/main/analysis/analysis'
 import { storeToRefs } from 'pinia'
@@ -86,6 +93,9 @@ const categoryFavorData = useMapDataToEchart(
   'name',
   'goodsFavor'
 )
+
+// 不同城市商品销量
+const addressSaleData = useMapDataToEchart(addressSale, 'address', 'count')
 </script>
 
 <style scoped>

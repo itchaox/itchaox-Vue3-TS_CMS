@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-12-07 13:53:25
  * @LastEditors: wc
- * @LastEditTime: 2022-12-07 15:50:00
+ * @LastEditTime: 2022-12-08 14:45:34
 -->
 
 <template>
@@ -18,6 +18,11 @@ import { onMounted, ref, watchEffect } from 'vue'
 
 import * as echarts from 'echarts'
 import type { EChartsOption } from 'echarts'
+
+import ChinaJSON from '../data/china.json'
+
+// 注册地图
+echarts.registerMap('china', ChinaJSON as any)
 
 interface IProps {
   options: EChartsOption
