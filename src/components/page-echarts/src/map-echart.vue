@@ -4,7 +4,7 @@
  * @Author: wc
  * @Date: 2022-12-08 14:30:19
  * @LastEditors: wc
- * @LastEditTime: 2022-12-08 14:34:00
+ * @LastEditTime: 2022-12-08 15:14:38
 -->
 <template>
   <div class="map-echart">
@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, computed } from 'vue'
+import { computed } from 'vue'
 
 import { convertData } from '../utils/convert-data'
 import type { IEchartValueData } from '../types'
